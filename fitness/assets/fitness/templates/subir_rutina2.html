@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+        <li class="page-item "><a class="verde page-link" href="#">1</a></li>
+        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Siguiente</a>
+        </li>
+    </ul>
+</nav>
+<!-- Aca deberia poner JINJA configurable para lunes
+    ,martes,mie... con un bucle for, por conveniencia ahora lo hago solo
+para el lunes -->
+<div class="txt-rutina">
+    <h1 style="white-space: nowrap; font-size: 21px;">El dia Lunes ¿Qué ejercicios realizas? </h1>
+    <div class="form-floating mb-3">
+        <input id="floatingEjercicioNombre" class="form-control">
+        <label for="floatingEjercicioNombre">Escribe el <span
+                style="color: green; font-weight: 500;">nombre</span>
+            del ejercicio aqui</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" id="floatingEjercicioSeries" class="form-control">
+        <label for="floatingEjercicioSeries">Escribe cantidad de <span
+                style="color: green; font-weight: 500;">series
+                en total</span> del ejercicio</label>
+    </div>
+    <div class="cuestionario-peso-y-repeticiones">
+        <h1>¿La cantidad de repeticiones es variable o fija?</h1>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio1" id="btncheck1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck1">Es fija</label>
+            <input type="radio" class="btn-check" name="btnradio1" id="btncheck2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="btncheck2">Varia</label>
+        </div>
+        <h1> ¿Utilizas peso en este ejercicio?</h1>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio2" id="btncheck3" autocomplete="off"
+                onclick="mostrarLabelPeso()">
+            <label class="btn btn-outline-success" for="btncheck3">Si</label>
+            <input type="radio" class="btn-check" name="btnradio2" id="btncheck4" autocomplete="off"
+                onclick="quitarLabelPeso()">
+            <label class="btn btn-outline-danger" for="btncheck4">No</label>
+        </div>
+    </div>
+    <!-- Que aparezca solamente cuando el usuario pone que la cantidad de peso es FIJA -->
+    <div class="cuestinario-oculto">
+        <h1 class="pesoFijoVariable">¿La cantidad de peso es variable o fijo?</h1>                
+        <div class="pesoFijoVariable btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio3" id="btncheck5" autocomplete="off" onclick="mostrarPesoInput()">
+            <label class="btn btn-outline-primary" for="btncheck5">Es fijo</label>
+            <input type="radio" class="btn-check" name="btnradio3" id="btncheck6" autocomplete="off" onclick="quitarPesoInput()">
+            <label class="btn btn-outline-primary" for="btncheck6">Varia</label>
+        </div>
+        <div class="input-group mb-3" id="inputPeso">
+            <div class="form-floating">
+                <input type="number" id="floatingCantidadPeso" class="form-control">
+                <label for="floatingCantidadPeso">Escribe cantidad de <span
+                        style="color: green; font-weight: 500;">peso fijo
+                    </span> del ejercicio</label>
+            </div>
+            <span class="input-group-text" id="inputGroupPrepend">kg</span>
+        </div>
+    </div>
+    <script>
+        let inputPeso = document.getElementById('inputPeso');
+        let pesoFijoVariable = document.getElementsByClassName('pesoFijoVariable');
+
+        function mostrarLabelPeso() {
+            for(var i = 0;i<pesoFijoVariable.length;i++){
+                pesoFijoVariable[i].style.display = 'flex';
+            }
+        }
+
+        function quitarLabelPeso() {
+            for(let i = 0;i<pesoFijoVariable.length;i++){
+                pesoFijoVariable[i].style.display = 'none';
+            }
+            inputPeso.style.display = 'none';
+        }
+
+        function mostrarPesoInput(){
+            inputPeso.style.display = 'flex';
+        }
+
+        function quitarPesoInput(){
+            inputPeso.style.display = 'none';
+        }
+
+    </script>
+    <!-- Que aparezca solamente cuando el usuario completa todos los anteriores -->
+    <button class="btn btn-primary" style="margin-top: .5rem;" type="submit">Agregar ejercicio </button>
+    <div class="body-taglist">
+        <div class="tag-box">
+            <ul>
+                <li><span class="material-symbols-outlined">close</span> Abdominales cortos</li>
+                <li><span class="material-symbols-outlined">close</span>Giros para oblicuos</li>
+                <li><span class="material-symbols-outlined">close</span>Espinales T</li>
+                <li><span class="material-symbols-outlined">close</span>Ejercicio 4</li>
+                <li><span class="material-symbols-outlined">close</span>Ejercicio 5</li>
+                <li><span class="material-symbols-outlined">close</span>Ejercicio 6</li>
+                <li><span class="material-symbols-outlined">close</span>Ejercicio 7</li>
+                <li><span class="material-symbols-outlined">close</span>Ejercicio 8</li>
+                <li><span class="material-symbols-outlined">close</span>Ejercicio 8</li>
+            </ul>
+        </div>
+    </div>
+    <button class="btn btn-dark" style="margin-bottom: 2rem;">Ya complete la rutina del dia Lunes</button>
+</div>
+
+{% endblock %}

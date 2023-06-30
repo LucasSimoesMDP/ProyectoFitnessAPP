@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled"><a class="page-link">Anterior</a></li>
+      <li class="page-item active"><a class="verde page-link ">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Siguiente</a>
+      </li>
+    </ul>
+  </nav>
+<div class="txt-rutina">
+    <h1>¿Qué días vas al GYM?</h1>
+    <form class="dias">
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+            <label class="btn btn-outline-success" for="btncheck1">Lunes</label>
+            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+            <label class="btn btn-outline-success" for="btncheck2">Martes</label>
+            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+            <label class="btn btn-outline-success" for="btncheck3">Miercoles</label>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+            <label class="btn btn-outline-success" for="btncheck4">Jueves</label>
+            <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+            <label class="btn btn-outline-success" for="btncheck5">Viernes</label>
+            <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
+            <label class="btn btn-outline-success" for="btncheck6">Sabado</label>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off">
+            <label class="btn btn-outline-success" for="btncheck7">Domingo</label>
+        </div>
+    </form>
+    <div class="cuota-opcional">
+        <h1>¿Cuándo vence tu cuota del GYM?</h1>
+        <h6>(Opcional)</h6>
+        <div class="body-calendario">
+            <div class="calendario">
+                <header>
+                    <p class="fecha-actual">Junio 2023</p>
+                    <div class="flechas-calendario">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </div>
+                </header>
+                <div class="cuerpo-calendario">
+                    <ul class="calendario-semana">
+                        <li>Lun</li>
+                        <li>Mar</li>
+                        <li>Mie</li>
+                        <li>Jue</li>
+                        <li>Vie</li>
+                        <li>Sab</li>
+                        <li>Dom</li>
+                    </ul>
+                    <ul class="calendario-dias">
+                        <li class="inactive">29</li>
+                        <li class="inactive">30</li>
+                        <li class="inactive">31</li>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>6</li>
+                        <li>7</li>
+                        <li>8</li>
+                        <li>9</li>
+                        <li>10</li>
+                        <li>11</li>
+                        <li>12</li>
+                        <li>13</li>
+                        <li>14</li>
+                        <li>15</li>
+                        <li>16</li>
+                        <li>17</li>
+                        <li>18</li>
+                        <li>19</li>
+                        <li>20</li>
+                        <li>21</li>
+                        <li>22</li>
+                        <li>23</li>
+                        <li>24</li>
+                        <li>25</li>
+                        <li>26</li>
+                        <li>27</li>
+                        <li>28</li>
+                        <li>29</li>
+                        <li>30</li>
+                        <li class="inactive">1</li>
+                        <li class="inactive">2</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

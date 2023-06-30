@@ -1,0 +1,613 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/******************* index.html css part *******************/
+.menu-inicio {
+    width: auto;
+    height: 100%;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+}
+
+.menu-inicio img {
+    margin-bottom: 15px;
+}
+
+.menu-inicio button {
+    margin-bottom: 20px;
+    width: 60%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 80px;
+
+}
+
+.menu-inicio p {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/******************* layout.html css part *******************/
+
+.top-nav {
+    font-family: 'Nunito', sans-serif;
+}
+
+.toggler {
+    z-index: 4;
+    height: 50px;
+    width: 50px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    opacity: 0;
+    /* ATENCION: CAMBIAR A CERO PARA QUE SE MODIFIQUE EL BLOQUE NEGRO*/
+}
+
+.hamburger {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 40px;
+    width: 40px;
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.hamburger>div {
+    position: relative;
+    top: 0;
+    right: 0;
+    background: rgb(0, 0, 0);
+    height: 2px;
+    width: 80%;
+    transition: all 0.35s ease;
+}
+
+/* Lineas negras del TOGGLER antes de ser presionado */
+
+.hamburger>div::before,
+.hamburger>div::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    background: rgb(0, 0, 0);
+    width: 100%;
+    height: 2px;
+    transition: all 0.35s ease;
+}
+
+.hamburger>div::after {
+    top: 10px;
+}
+
+/* Una vez que se presione el TOGGLER se realiza la animacion de quitar
+ la linea del medio y cruzar las lineas de arriba y de abajo formando la cruz
+*/
+
+.toggler:checked+.hamburger>div {
+    background: rgba(0, 0, 0, 0);
+}
+
+.toggler:checked+.hamburger>div::before {
+    top: 0;
+    transform: rotate(45deg);
+    background: black;
+}
+
+.toggler:checked+.hamburger>div::after {
+    top: 0;
+    transform: rotate(135deg);
+    background: black;
+}
+
+/* Menu principal con el fondo gris claro y el texto */
+
+.menu {
+    background: rgb(168, 168, 168);
+    width: 0%;
+    height: 100%;
+    /* Transicion del menu */
+    transition: all 0.35s ease;
+    position: fixed;
+    top: 0;
+    right: 0;
+    opacity: 100%;
+    z-index: 2;
+}
+
+/* Se agranda el rectangulo del fondo del menu principal un 40% al ser presionado */
+
+.toggler:checked~.menu {
+    width: 40%;
+}
+
+/* Estilos de la lista  */
+
+.menu>div>ul {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    padding: 20px;
+    visibility: hidden;
+}
+
+.menu>div>ul>li {
+    list-style: none;
+    /* Quitamos los puntos del lado*/
+    padding: 0.5rem;
+    /* Espacio entre las opciones del menu */
+}
+
+.menu>div>ul>li>a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Archivo Narrow', sans-serif;
+}
+
+.menu>div>ul>li:last-child {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.toggler:checked~.menu>div>ul {
+    visibility: visible;
+    transition: visibility 0.4s ease;
+    transition-delay: 0.2s;
+}
+
+.toggler:checked~.menu>div>ul>li>a:hover {
+    color: orange;
+}
+
+/* Lo de debajo es el css para el navbar de iconos que se encuentra 
+    al final del layout, propiedades modificadas de Bootstrap*/
+
+body.layout {
+    margin: 0 0 55px 0;
+}
+
+.nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.185);
+    background-color: #ffffff;
+    overflow-x: visible;
+    display: flex;
+    font-size: 10px;
+    z-index: 5;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0.25;
+    min-width: 50px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: sans-serif;
+    color: #444444;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.nav-link i.material-symbols-outlined {
+    margin-bottom: 5px;
+    /* Espacio opcional entre el icono y el texto */
+    display: flex;
+    justify-content: center;
+}
+
+.nav-link i.material-symbols-outlined:hover {
+    color: orange;
+    font-size: 27px;
+}
+
+.nav-text {
+    display: flex;
+    justify-content: center;
+}
+
+/******************* my_profile.html css part *******************/
+
+
+.user-info-perfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    white-space: normal;
+    position: relative;
+    z-index: 1;
+}
+
+.user-info-perfil h3 {
+    font-size: 18px;
+    margin: 10px;
+}
+
+.user-info-perfil img {
+    width: 50%;
+    height: auto;
+}
+
+.user-info-perfil>input:disabled {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+    margin: 5px;
+    width: 55%;
+    position: relative;
+}
+
+.user-info-perfil p {
+    font-size: 14px;
+    opacity: 80%;
+    color: rgb(65, 59, 59);
+}
+
+.info-unica-linea {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-unica-linea input {
+    width: 20%;
+}
+
+.info-unica-linea button {
+    border-radius: .5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MEDIA QUERYS */
+
+@media(max-width: 383px) {
+    .nav {
+        font-size: 8px;
+    }
+
+    .nav-text {
+        visibility: hidden;
+    }
+
+    .nav-link i.material-symbols-outlined {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        overflow: hidden;
+    }
+
+    .nav-link i.material-symbols-outlined:hover {
+        color: orange;
+        font-size: 43px;
+    }
+}
+
+@media(min-width: 455px) {
+    .toggler:checked~.menu {
+        width: 30%;
+    }
+}
+
+@media(min-width: 585px) {
+    .toggler:checked~.menu {
+        width: 25%;
+    }
+}
+
+@media(min-width: 950px) {
+
+    .menu>div>ul {
+        justify-content: center;
+        top: 30px;
+        right: 20px;
+        gap: 20px;
+    }
+
+    .toggler:checked~.menu {
+        width: 15%;
+    }
+
+    .user-info-perfil img {
+        width: 25%;
+    }
+
+    .user-info-perfil h3 {
+        font-size: 25px;
+        margin: 20px;
+    }
+
+    .user-info-perfil p {
+        font-size: 18px;
+    }
+
+    .user-info-perfil p:last-child {
+        margin-bottom: 50px;
+    }
+}
+
+@media(min-width: 1800px) {
+
+    .menu>div>ul {
+        justify-content: center;
+        top: 30px;
+        right: 20px;
+        gap: 20px;
+    }
+
+    .toggler:checked~.menu {
+        width: 10%;
+    }
+}
+
+/******************* subir_rutina css part *******************/
+.txt-rutina {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.dias {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2px;
+    margin: 1rem;
+}
+
+.cuota-opcional h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-top: 1rem;
+}
+
+.cuota-opcional h6 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.body-calendario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+/* El siguiente puedo editar el width 
+en las media querys para que se adapte mejor a todas las dimensiones */
+.calendario {
+    height: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.calendario header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 30px 10px;
+}
+
+.flechas-calendario {
+    display: flex;
+    height: 38px;
+    width: auto;
+    margin: 0 1px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    user-select: none;
+    border-radius: 50%;
+}
+
+.flechas-calendario span:last-child {
+    margin-right: -10px;
+}
+
+.flechas-calendario span:hover {
+    background: #f2f2f2;
+}
+
+.fecha-actual {
+    font-size: 1.45rem;
+    font-weight: 500;
+}
+
+.cuerpo-calendario {
+    padding: 20px;
+}
+
+.cuerpo-calendario ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+}
+
+.cuerpo-calendario .calendario-dias {
+    margin-bottom: 20px;
+}
+
+.cuerpo-calendario li {
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem;
+}
+
+.cuerpo-calendario .calendario-semana li {
+    font-weight: 500;
+    cursor: default;
+}
+
+.cuerpo-calendario .calendario-dias li {
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 15px;
+}
+
+.calendario-dias li.inactive {
+    color: #aaa;
+}
+
+.calendario-dias li.active {
+    color: #fff;
+}
+
+.calendario-dias li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+}
+
+.calendario-dias li.active::before {
+    background: #198754;
+}
+
+.calendario-dias li:not(.active):hover::before {
+    background: #f2f2f2;
+}
+
+.txt-rutina>.form-floating>input {
+    width: 20rem;
+}
+
+.txt-rutina>.form-floating>label {
+    font-size: 14px;
+}
+
+.cuestionario-peso-y-repeticiones {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.cuestionario-peso-y-repeticiones h1 {
+    font-size: 16px;
+}
+
+.cuestinario-oculto{
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 1rem;
+    width: 20rem;
+    font-size: 14px;
+}
+
+.txt-rutina .cuestinario-oculto .pesoFijoVariable{
+    display: none;
+}
+
+#inputPeso{
+    display: none;
+    margin-top: 1rem;
+}
+
+.cuestinario-oculto > h1{
+    font-size: 16px;
+}
+
+.body-taglist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50vh;
+    min-height: 200px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    margin: 2rem;
+}
+
+.tag-box ul {
+    display: flex;
+    padding: 7px;
+    border-radius: 5px;
+    margin: 12px 0;
+    flex-wrap: wrap;
+
+}
+
+.tag-box ul li {
+    list-style: none;
+    background: #f2f2f2;
+    padding: 5px 8px 5px 8px;
+    margin: 4px 3px;
+    border-radius: 5px;
+    border: 1px solid #e3d1e1;
+    display: flex;
+    align-items: center;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.tag-box ul li:hover {
+    overflow: visible;
+}
+
+.tag-box ul li span {
+    height: 20px;
+    width: 20px;
+    color: #808080;
+    margin-right: 8px;
+    font-size: 10px;
+    background: #dfdfdf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+}

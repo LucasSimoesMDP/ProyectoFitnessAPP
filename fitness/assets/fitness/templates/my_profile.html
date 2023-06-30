@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<div class="user-info-perfil">
+    <img src="{% static 'icon-default-profile.png' %} ">
+    <h3>Nombre y apellido:</h3>
+    <input class="form-control" type="text" placeholder="Lionel Messi" disabled>
+    <!-- cambiar placeholder por {##} de jinja -->
+    <h3>Correo electronico:</h3>
+    <input class="form-control" type="text" placeholder="lionelmessi@gmail.com" disabled>
+    <div class="info-unica-linea" style="margin-top: 10px; margin-bottom: 5px;">
+        <h3>Añadir altura:</h3>
+        <input class="form-control" type="text" value="1,98" aria-label="Disabled input example" readonly>
+        <h3>metros</h3> <!--  aca iria jinja en donde dice metros por si el usuario quiere cambiarlo a pies  -->
+        <button><span class="material-symbols-outlined">edit</span></button>
+    </div>
+    <p class="text-body-secondary">Última modificación dd-mm-yyyy</p>
+    <div class="info-unica-linea" style="margin-bottom: 5px;">
+        <h3>Añadir peso:</h3>
+        <input class="form-control" type="text" value="75" aria-label="Disabled input example" readonly>
+        <h3>kg</h3> <!--  aca iria jinja en donde dice metros por si el usuario quiere cambiarlo a pies  -->
+        <button><span class="material-symbols-outlined">edit</span></button>
+    </div>
+    <p class="text-body-secondary">Última modificación dd-mm-yyyy</p> <!-- tambien agregar ddmmyyyy con jinja -->
+</div>
+{% endblock %}
