@@ -377,6 +377,8 @@ body.layout {
     align-items: center;
     justify-content: center;
     margin-top: 2rem;
+    z-index: 0;
+    position: relative;
 }
 
 .dias {
@@ -518,8 +520,8 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     width: 20rem;
 }
 
-.txt-rutina>.form-floating>label {
-    font-size: 14px;
+.txt-rutina>.form-floating>label {   
+    font-size: 14px; 
 }
 
 .cuestionario-peso-y-repeticiones {
