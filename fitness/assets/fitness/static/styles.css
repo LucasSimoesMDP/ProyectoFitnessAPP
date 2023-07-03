@@ -624,13 +624,13 @@ en las media querys para que se adapte mejor a todas las dimensiones */
 
 .tabla-ejercicios table{
     border: 1px solid black;
-    width: 500px;
+    min-width: 10vh;
 }
 
 .fila-nombre th{
     white-space: nowrap;
     text-align: center;
-
+    padding: .5rem;
 }
 
 .fila-series > th{
@@ -638,15 +638,16 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     text-align: center;
 }
 
-.fila-rep-nofija>td, .fila-series>td{
+.fila-peso-nofijo>td,  .fila-rep-nofija>td, .fila-series>td{
     border: 1px solid black;
     padding: 1rem;
     text-align: center;
 }
 
-.fila-nombre tr, .fila-rep-nofija th,.fila-peso-fijo th, .fila-rep-fija th{
+.fila-nombre tr, .fila-peso-nofijo td, .fila-rep-nofija th, .fila-peso-fijo th, .fila-rep-fija th, .fila-peso-nofijo th{
     border: 1px solid black;
-    text-align: center;   
+    text-align: center;
+    padding: 1rem;   
 }
 
 .fila-rep-fija td, .fila-peso-fijo td{
@@ -655,4 +656,16 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     text-align: center;
     vertical-align: middle;
     padding: .3rem;
+}
+
+.input-invisible{
+    border: none;
+    background: transparent;
+    padding: 0;
+    text-align: center;
+    color: inherit;
+    font-size: inherit;
+    width: 30px;
+    height: auto;
+    white-space: nowrap;
 }

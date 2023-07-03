@@ -14,3 +14,6 @@ def subir_rutina(request):
 
 def subir_rutina_p2(request):
         return render(request, "subir_rutina2.html")
+
+def subir_rutina_p3(request):
+        return render(request, "subir_rutina3.html")

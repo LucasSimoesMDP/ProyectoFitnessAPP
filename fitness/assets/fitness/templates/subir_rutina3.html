@@ -1,0 +1,137 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center" >
+        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+        <li class="page-item "><a class="verde page-link" href="#">1</a></li>
+        <li class="page-item "><a class="page-link" href="#">2</a></li>
+        <li class="page-item active"><a class="page-link" href="#" style="z-index: 1;">3</a></li>
+        <li class="page-item">
+            <a class="page-link disabled" href="#">Siguiente</a>
+        </li>
+    </ul>
+</nav> 
+<div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <h1 style="white-space: nowrap; font-size: 18px;display: flex;justify-content: center;align-items: center;">
+        Perfecto! Ya casi terminamos... </h1>
+    <h1 style="font-size: 18px;margin: 1rem;"> En las siguientes grillas vas a ver espacios en blanco </h1>
+    <h1 style="font-size: 18px;margin: 1rem;">Rellenalos con la cantidad de repeticiones por serie y el peso, en
+        caso que utilices</h1>
+
+    <h1>Dia Lunes</h1>
+</div>
+
+<!-- 4 tipos de tablas de ejercicios
+- peso fijo y repeticion fija
+- peso fijo y repeticion no fija
+- peso no fijo y repeticion fija
+- peso no fijo y repeticion no fija
+-->
+<!-- CASO 1 peso fijo y repeticion fija -->
+<div class="tabla-ejercicios pesofijo-repfija">
+    <table>
+        <tr class="fila-nombre"><th colspan="5">Press de pecho en banco plano</th></tr>
+        <tr class="fila-series">
+            <th>Series</th>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+        <tr class="fila-rep-fija">
+            <th>Repeticiones</th>
+            <td colspan="4">4</td>
+        </tr>
+        <tr class="fila-peso-fijo">
+            <th>Peso</th>
+            <td colspan="4">10kg</td>
+        </tr>
+    </table>
+</div>
+
+<!-- CASO 2 peso fijo y repeticion no fija -->
+<div class="tabla-ejercicios pesofijo-repnofija">
+    <table>
+        <tr class="fila-nombre"><th colspan="5">Press de pecho en banco plano</th></tr>
+        <tr class="fila-series">
+            <th>Series</th>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+        <tr class="fila-rep-nofija">
+            <th>Repeticiones</th>
+            <!-- En colspan deberia marcar la cantidad de repeticiones que el usuario escribio -->
+            <td>15</td>
+            <td>12</td>
+            <td>10</td>
+            <td>8</td>
+        </tr>
+        <tr class="fila-peso-fijo">
+            <th>Peso</th>
+            <td colspan="4">10kg</td>
+        </tr>
+    </table>
+</div>
+
+<!-- CASO 3 peso no fijo y repeticion fija -->
+<div class="tabla-ejercicios pesonofijo-repfija">
+    <table>
+        <tr class="fila-nombre"><th colspan="5">Press de pecho en banco plano</th></tr>
+        <tr class="fila-series">
+            <th>Series</th>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+        <tr class="fila-rep-fija">
+            <th>Repeticiones</th>
+            <!-- En colspan deberia marcar la cantidad de repeticiones que el usuario escribio -->
+            <td colspan="4"><input class="input-invisible"></td>
+        </tr>
+        <tr class="fila-peso-nofijo">
+            <th>Peso</th>
+            <td>2,5</td>
+            <td>5</td>
+            <td>7,5</td>
+            <td>10</td>
+        </tr>
+    </table>
+</div>        
+
+<!-- CASO 4 peso no fijo y repeticion no fija -->
+<div class="tabla-ejercicios pesonofijo-repnofija">
+    <table>
+        <tr class="fila-nombre"><th colspan="5">Press de pecho en banco plano</th></tr>
+        <tr class="fila-series">
+            <th>Series</th>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+        </tr>
+        <tr class="fila-rep-nofija">
+            <th>Repeticiones</th>
+            <!-- En colspan deberia marcar la cantidad de repeticiones que el usuario escribio -->
+            <td><input class="input-invisible"></td>
+            <td>12</td>
+            <td>10</td>
+            <td>8</td>
+        </tr>
+        <tr class="fila-peso-nofijo">
+            <th>Peso</th>
+            <td><input class="input-invisible"></td>
+            <td>5</td>
+            <td>7,5</td>
+            <td>10</td>
+        </tr>
+    </table>
+</div>
+<div style="margin: 1rem;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <button class="btn btn-dark">Ya complete la rutina del dia Lunes</button>
+</div>
+{% endblock %}
