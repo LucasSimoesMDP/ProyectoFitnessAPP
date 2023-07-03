@@ -613,3 +613,46 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     cursor: pointer;
     display: flex;
 }
+
+.tabla-ejercicios{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabla-ejercicios table{
+    border: 1px solid black;
+    width: 500px;
+}
+
+.fila-nombre th{
+    white-space: nowrap;
+    text-align: center;
+
+}
+
+.fila-series > th{
+    border: 1px solid black;
+    text-align: center;
+}
+
+.fila-rep-nofija>td, .fila-series>td{
+    border: 1px solid black;
+    padding: 1rem;
+    text-align: center;
+}
+
+.fila-nombre tr, .fila-rep-nofija th,.fila-peso-fijo th, .fila-rep-fija th{
+    border: 1px solid black;
+    text-align: center;   
+}
+
+.fila-rep-fija td, .fila-peso-fijo td{
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+    padding: .3rem;
+}

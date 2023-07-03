@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/fitness/assets/fitness/static/styles.css">
+    <!-- CAMBIAR EL STYLE.CSS QUITANDO EL /ProyectoFitnessApp/ -->
+    <link rel="stylesheet" href="/ProyectoFitnessApp/fitness/assets/fitness/static/styles.css">
 
     <!-- Google fonts API -->
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Nunito:ital@1&display=swap"
@@ -79,12 +80,58 @@
                 caso que utilices</h1>
             <h1>Dia Lunes</h1>
         </div>
-        <div class="tabla-ejercicios">
 
-
+        <!-- 4 tipos de tablas de ejercicios
+        - peso fijo y repeticion fija
+        - peso fijo y repeticion no fija
+        - peso no fijo y repeticion fija
+        - peso no fijo y repeticion no fija
+        -->
+        <div class="tabla-ejercicios pesofijo-repfija">
+            <table>
+                <tr class="fila-nombre"><th colspan="5">Press de pecho en banco plano</th></tr>
+                <tr class="fila-series">
+                    <th>Series</th>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr class="fila-rep-fija">
+                    <th>Repeticiones</th>
+                    <td colspan="4">4</td>
+                </tr>
+                <tr class="fila-peso-fijo">
+                    <th>Peso</th>
+                    <td colspan="4">10kg</td>
+                </tr>
+            </table>
         </div>
 
-
+        <div class="tabla-ejercicios pesofijo-repnofija">
+            <table>
+                <tr class="fila-nombre"><th colspan="5">Press de pecho en banco plano</th></tr>
+                <tr class="fila-series">
+                    <th>Series</th>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr class="fila-rep-nofija">
+                    <th>Repeticiones</th>
+                    <!-- En colspan deberia marcar la cantidad de repeticiones que el usuario escribio -->
+                    <td>15</td>
+                    <td>12</td>
+                    <td>10</td>
+                    <td>8</td>
+                </tr>
+                <tr class="fila-peso-fijo">
+                    <th>Peso</th>
+                    <td colspan="4">10kg</td>
+                </tr>
+            </table>
+        </div>
 
 
 
