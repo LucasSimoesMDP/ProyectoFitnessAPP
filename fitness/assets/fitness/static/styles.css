@@ -7,34 +7,34 @@
 }
 
 /******************* index.html css part *******************/
-.menu-inicio {
+.menu-login, .menu-inicio {
     width: auto;
     height: 100%;
     margin: auto;
     align-items: center;
     justify-content: center;
-    display: grid;
+    display: flex;
+    flex-direction: column;
 }
 
-.menu-inicio img {
-    margin-bottom: 15px;
-}
-
-.menu-inicio button {
-    margin-bottom: 20px;
-    width: 60%;
+.menu-login> img, .menu-inicio > img {
+    margin: 3rem;
     height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 80px;
-
+    width: 40%;
 }
 
-.menu-inicio p {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+.menu-inicio >button {
+    margin: 1rem;
+    width: 30%;
+    height: auto;
+}
+
+.menu-login >p {
+    margin: 1rem;
+}
+
+.menu-login > .form-floating{
+    width: 30%;
 }
 
 /******************* layout.html css part *******************/

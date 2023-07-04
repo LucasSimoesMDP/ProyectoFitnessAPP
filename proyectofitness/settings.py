@@ -56,6 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/templates',
+                 'C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/templates'
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,7 +122,7 @@ STATIC_URL = 'fitness/assets/fitness/static/'
 
 #Add this in your settings.py file:
 STATICFILES_DIRS = [
-    BASE_DIR / "E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/",
+    BASE_DIR / "E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/", "C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/static",
 ]
 
 # Default primary key field type

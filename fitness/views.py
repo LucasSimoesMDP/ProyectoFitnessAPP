@@ -6,6 +6,9 @@ from django.http import HttpResponse
 def index(request):
     return render(request, "index.html")
 
+def login(request):
+      return render(request, "login.html")
+
 def my_profile(request):
     return render(request,"my_profile.html")
 
