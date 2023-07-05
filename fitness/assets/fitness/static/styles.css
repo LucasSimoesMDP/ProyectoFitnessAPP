@@ -8,9 +8,6 @@
 
 /******************* index.html css part *******************/
 .menu-login, .menu-inicio {
-    width: auto;
-    height: 100%;
-    margin: auto;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -18,9 +15,9 @@
 }
 
 .menu-login> img, .menu-inicio > img {
-    margin: 3rem;
-    height: auto;
-    width: 40%;
+    margin: 4rem;
+    height: 100px;
+    width: auto;
 }
 
 .menu-inicio >button {
@@ -33,8 +30,12 @@
     margin: 1rem;
 }
 
+/* Agregar mediaquery para que se vea mas 
+grande segun la dimension */
+
 .menu-login > .form-floating{
-    width: 30%;
+    width: 285px;
+    height: auto;
 }
 
 /******************* layout.html css part *******************/
