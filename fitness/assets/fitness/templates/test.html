@@ -1,37 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/ProyectoFitnessAPP/fitness/assets/fitness/static/styles.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-        <title>FitAPP</title>
-    </head>
-    <body>
-        <main>
-            <div class="menu-login">
-                <img src="/ProyectoFitnessAPP/fitness/assets/fitness/static/imagen-app.png">      
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="usuarioEmail">
-                    <label for="usuarioEmail">Correo electrónico</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input class="form-control" id="usuarioNombre">
-                    <label for="usuarioNombre">Nombre Completo</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input class="form-control" id="usuarioNametag">
-                    <label for="usuarioNametag">Nombre de usuario</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="usuarioContrasena">
-                    <label for="usuarioContrasena">Contraseña</label>
-                  </div>
-                  <button type="button" class="btn btn-primary btn-lg">Registrate</button>
-                  <p>¿Ya tenes cuenta? <a href="#"  class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Inicia sesion</a></p>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/ProyectoFitnessAPP/fitness/assets/fitness/static/styles.css">
+
+    <!-- Google fonts API -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&family=Nunito:ital@1&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <!-- Bootstrap and Animatestyle -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <title>FitAPP</title>
+</head>
+
+<body class="layout">
+    <header>
+        <section class="top-nav">
+            <p>Bienvenido user_name </p>
+        </section>
+    </header>
+    <main>
+        <input type="checkbox" class="toggler">
+        <div class="hamburger">
+            <div></div>
+        </div>
+        <div class="menu">
+            <div>
+                <ul>
+                    <li><a href='#'>Mi perfil</a></li>
+                    <li><a href='#'>Ajustes</a></li>
+                    <hr style="display: flex; align-items: center; height: auto;">
+                    <li><a href='#'>Cerrar sesion</a></li>
+                </ul>
             </div>
-        </main>
-    </body>
+        </div>
+        <div>
+            <h1>Comenzemos a configurar la aplicacion</h1>
+            <h1> Vamos a agregar la primera rutina</h1>
+        </div>
+        <!-- from https://freefrontend.com/css-arrows/  -->
+        <div class="arrow">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </main>
+    <footer>
+        <!-- ACA TENGO QUE CAMBIAR EL CLASS DE NAV A OTRO PARA QUE NO TENGA PROBLEMAS CON LOS DEMAS COMPONENTES -->
+        <nav class="nav-unico-index">
+            <a href="#" class="nav-link link-active">
+                <i class="material-symbols-outlined">add_circle</i>
+                <span class="nav-text">Agregar rutina</span>
+            </a>
+        </nav>
+    </footer>
+</body>
+
 </html>
