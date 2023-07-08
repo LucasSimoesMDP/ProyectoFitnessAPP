@@ -35,3 +35,7 @@ def subir_rutina_p2(request):
 @login_required
 def subir_rutina_p3(request):
         return render(request, "subir_rutina3.html")
+
+@login_required
+def after_first_login(request):
+      return render(request,"index-after-firstlogin.html")

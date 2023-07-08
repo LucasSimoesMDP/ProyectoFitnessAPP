@@ -7,33 +7,35 @@
 }
 
 /******************* index.html css part *******************/
-.menu-login, .menu-inicio {
+.menu-login,
+.menu-inicio {
     align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
 }
 
-.menu-login> img, .menu-inicio > img {
+.menu-login>img,
+.menu-inicio>img {
     margin: 4rem;
     height: 100px;
     width: auto;
 }
 
-.menu-inicio >button {
+.menu-inicio>button {
     margin: 1rem;
     width: 30%;
     height: auto;
 }
 
-.menu-login >p {
+.menu-login>p {
     margin: 1rem;
 }
 
 /* Agregar mediaquery para que se vea mas 
 grande segun la dimension */
 
-.menu-login > .form-floating{
+.menu-login>.form-floating {
     width: 285px;
     height: auto;
 }
@@ -521,8 +523,8 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     width: 20rem;
 }
 
-.txt-rutina>.form-floating>label {   
-    font-size: 14px; 
+.txt-rutina>.form-floating>label {
+    font-size: 14px;
 }
 
 .cuestionario-peso-y-repeticiones {
@@ -538,7 +540,7 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     font-size: 16px;
 }
 
-.cuestinario-oculto{
+.cuestinario-oculto {
     white-space: nowrap;
     align-items: center;
     justify-content: center;
@@ -548,16 +550,16 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     font-size: 14px;
 }
 
-.txt-rutina .cuestinario-oculto .pesoFijoVariable{
+.txt-rutina .cuestinario-oculto .pesoFijoVariable {
     display: none;
 }
 
-#inputPeso{
+#inputPeso {
     display: none;
     margin-top: 1rem;
 }
 
-.cuestinario-oculto > h1{
+.cuestinario-oculto>h1 {
     font-size: 16px;
 }
 
@@ -615,7 +617,7 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     display: flex;
 }
 
-.tabla-ejercicios{
+.tabla-ejercicios {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -623,35 +625,43 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     justify-content: center;
 }
 
-.tabla-ejercicios table{
+.tabla-ejercicios table {
     border: 1px solid black;
     min-width: 10vh;
 }
 
-.fila-nombre th{
+.fila-nombre th {
     white-space: nowrap;
     text-align: center;
     padding: .5rem;
 }
 
-.fila-series > th{
+.fila-series>th {
     border: 1px solid black;
     text-align: center;
 }
 
-.fila-peso-nofijo>td,  .fila-rep-nofija>td, .fila-series>td{
+.fila-peso-nofijo>td,
+.fila-rep-nofija>td,
+.fila-series>td {
     border: 1px solid black;
     padding: 1rem;
     text-align: center;
 }
 
-.fila-nombre tr, .fila-peso-nofijo td, .fila-rep-nofija th, .fila-peso-fijo th, .fila-rep-fija th, .fila-peso-nofijo th{
+.fila-nombre tr,
+.fila-peso-nofijo td,
+.fila-rep-nofija th,
+.fila-peso-fijo th,
+.fila-rep-fija th,
+.fila-peso-nofijo th {
     border: 1px solid black;
     text-align: center;
-    padding: 1rem;   
+    padding: 1rem;
 }
 
-.fila-rep-fija td, .fila-peso-fijo td{
+.fila-rep-fija td,
+.fila-peso-fijo td {
     border-bottom: 1px solid black;
     border-top: 1px solid black;
     text-align: center;
@@ -659,7 +669,7 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     padding: .3rem;
 }
 
-.input-invisible{
+.input-invisible {
     border: none;
     background: transparent;
     padding: 0;
@@ -671,7 +681,7 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     white-space: nowrap;
 }
 
-.nav-unico-index{
+.nav-unico-index {
     position: fixed;
     justify-content: space-around;
     margin-bottom: 0;
@@ -695,13 +705,12 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-    cursor: pointer;
 }
 
 .arrow span {
     display: block;
-    width: 1.5vw;
-    height: 1.5vw;
+    width: 33px;
+    height: 33px;
     border-bottom: 5px solid rgb(0, 0, 0);
     border-right: 5px solid rgb(0, 0, 0);
     transform: rotate(45deg);
@@ -722,9 +731,11 @@ en las media querys para que se adapte mejor a todas las dimensiones */
         opacity: 0;
         transform: rotate(45deg) translate(-20px, -20px);
     }
+
     50% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
         transform: rotate(45deg) translate(20px, 20px);
