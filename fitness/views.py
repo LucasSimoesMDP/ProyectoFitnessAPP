@@ -22,13 +22,17 @@ def login(request):
 def register(request):
     if request.method == 'POST':
          email = request.POST['email']
+         if len(email) == 0:
+              pass
          fullname = request.POST['fullname']
          username = request.POST['username']
          password = request.POST['password']
 
+
+
         # Utilizo la clase de usuario predefinida de Django
          user = User.objects.create_user(username=username, email=email, password=password, fullname = fullname)
-                        
+         return render(request, "index-after-firstlogin.html", {'user':user})
     else:                
         return render(request, "register.html")
 
