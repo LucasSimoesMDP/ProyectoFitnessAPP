@@ -19,7 +19,7 @@
   <main>
     <div class="menu-login">
       <img src="{% static 'imagen-app.png' %}">
-      <form method="post" action="/register">
+      <form id="register-form" method="post" action="/register">
         {% csrf_token %}
         <div class="form-floating mb-3">
           <input type="email" name="email" class="form-control" id="usuarioEmail">
@@ -37,8 +37,12 @@
           <input type="password" name="password" class="form-control" id="usuarioContrasena">
           <label for="usuarioContrasena">Contraseña</label>
         </div>
-        <button type="button" class="btn btn-primary btn-lg">Registrate</button>
+        <button type="button" id="register-form-boton" class="btn btn-primary btn-lg" disabled>Registrate</button>
       </form>
+      <script>
+        const formulario = document.getElementById('register-form');
+        const boton_formulario = document.getElementById('register-form-boton')
+      </script>
       <p>¿Ya tenes cuenta? <a href="{% url 'login' %}"
           class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Inicia
           sesion</a></p>
