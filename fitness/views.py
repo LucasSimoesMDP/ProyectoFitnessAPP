@@ -2,19 +2,35 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your views here.
-
-
 def index(request):
     return render(request, "index.html")
 
 def login(request):
-      return render(request, "login.html")
+      if request.method == 'POST':
+        username_or_mail = request.POST['usernameormail']
+        password = request.POST['password']
+
+    #Filtro si el usuario escribio su username o su mail para iniciar sesion        
+        
+      else:
+        return render(request, "login.html")
 
 def register(request):
-      return render(request, "register.html")
+    if request.method == 'POST':
+         email = request.POST['email']
+         fullname = request.POST['fullname']
+         username = request.POST['username']
+         password = request.POST['password']
+
+        # Utilizo la clase de usuario predefinida de Django
+         user = User.objects.create_user(username=username, email=email, password=password, fullname = fullname)
+                        
+    else:                
+        return render(request, "register.html")
 
 # @login_required
 # def logout(request):
