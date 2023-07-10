@@ -10,7 +10,7 @@ def index(request):
     return render(request, "index.html")
 
 def login(request):
-      if request.method == 'POST':
+      if request.POST:
         username_or_mail = request.POST['usernameormail']
         password = request.POST['password']
 
@@ -20,18 +20,27 @@ def login(request):
         return render(request, "login.html")
 
 def register(request):
-    if request.method == 'POST':
-         email = request.POST['email']
-         if len(email) == 0:
-              pass
-         fullname = request.POST['fullname']
-         username = request.POST['username']
-         password = request.POST['password']
+    user_count = User.objects.count()
+    if request.POST:
+         email = request.POST['email'].lower()
+         fullname = request.POST['fullname'].lower().title()
+         username = request.POST['username'].lower()
+         password1 = request.POST['password']
+         password2 = request.POST['password2']
 
+        #  Si las contrasenas son diferentes, enviar mensaje de error
+         if password1 != password2:
+              return render() 
 
+         for i in range(user_count):
+            if username in User.objects.get(username):
+                 pass
+                 
 
         # Utilizo la clase de usuario predefinida de Django
-         user = User.objects.create_user(username=username, email=email, password=password, fullname = fullname)
+         user = User.objects.create_user(username=username, email=email, password=password1, fullname = fullname)
+
+
          return render(request, "index-after-firstlogin.html", {'user':user})
     else:                
         return render(request, "register.html")
