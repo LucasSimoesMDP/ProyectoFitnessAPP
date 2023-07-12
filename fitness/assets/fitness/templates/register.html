@@ -19,18 +19,34 @@
   <main>
     <div class="menu-login">
       <img src="{% static 'imagen-app.png' %}">
-      <form id="register-form" method="post" action="/register">
+      <form id="register-form" method="post" action="/register/">
         {% csrf_token %}
+        {% for field in form %}
+        <p>
+        {% for error in field.errors %}
+        <p style="color: red;">{{ error }}</p>        
+        {% endfor %}
+        </p>
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <div style="color: red;">
+          <p>{{ form.non_field_errors }}</p> 
+        </div>
+        {% endif %}
         <div class="form-floating mb-3">
           <input type="email" name="email" class="form-control" id="usuarioEmail" required>
           <label for="usuarioEmail">Correo electrónico</label>
         </div>
         <div class="form-floating mb-3">
-          <input class="form-control" name="fullname" id="usuarioNombre" required>
-          <label for="usuarioNombre">Nombre Completo</label>
+          <input type="text" class="form-control" name="fullname" id="usuarioNombre" required>
+          <label for="usuarioNombre">Nombre</label>
         </div>
+        <!-- <div class="form-floating mb-3">
+          <input type="text" class="form-control" name="last_name" id="usuarioAapellido" required>
+          <label for="usuarioApellido">Apellido</label>
+        </div> -->
         <div class="form-floating mb-3">
-          <input class="form-control" name="username" id="usuarioNametag" required>
+          <input type="text" class="form-control" name="username" id="usuarioNametag" required>
           <label for="usuarioNametag">Nombre de usuario</label>
         </div>
         <div class="form-floating mb-3">
@@ -38,10 +54,10 @@
           <label for="usuarioContrasena">Contraseña</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="password2" name="password2" class="form-control" id="usuarioContrasena2" required>
+          <input type="password" name="password2" class="form-control" id="usuarioContrasena2" required>
           <label for="usuarioContrasena2">Repita contraseña</label>
         </div>
-        <button type="button" id="register-form-boton" class="btn btn-primary btn-lg">Registrate</button>
+        <button type="submit" id="register-form-boton" class="btn btn-primary btn-lg">Registrate</button>
       </form>
       <p>¿Ya tenes cuenta? <a href="{% url 'login' %}"
           class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Inicia

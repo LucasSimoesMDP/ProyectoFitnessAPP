@@ -87,20 +87,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 
 # Internationalization
@@ -122,7 +122,8 @@ STATIC_URL = 'fitness/assets/fitness/static/'
 
 #Add this in your settings.py file:
 STATICFILES_DIRS = [
-    BASE_DIR / "E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/", "C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/static",
+    BASE_DIR / "E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/", 
+    "C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/static",
 ]
 
 # Default primary key field type
@@ -133,3 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django_project/settings.py
 LOGIN_REDIRECT_URL = "index"
 # LOGOUT_REDIRECT_URL = "index"
+
+# Se creo el modelo de Custom user
+AUTH_USER_MODEL="fitness.CustomUser"

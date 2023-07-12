@@ -19,13 +19,14 @@
     <main>
         <div class="menu-login">
             <img src="{% static 'imagen-app.png' %}">
-            <form method="post" action="/login">
-                {% csrf_token %} 
-                <div class="form-floating mb-3">
+            <form method="post" action="/login/"
+                style="align-items: center;justify-content: center;display: flex;flex-direction: column;">
+                {% csrf_token %}
+                <div class="form-floating" style="min-width: 350px;">
                     <input class="form-control" name="usernameormail" id="usuarioNombreOEmail">
                     <label for="usuarioNombreOEmail">Correo electrónico o nombre de usuario</label>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating" style="min-width: 350px;margin: 1.5rem;">
                     <input type="password" name="password" class="form-control" id="usuarioContrasena">
                     <label for="usuarioContrasena">Contraseña</label>
                 </div>

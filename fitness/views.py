@@ -1,8 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate 
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.contrib.auth.models import User
+from .forms import RegistationForm
 
 
 # Create your views here.
@@ -19,31 +20,29 @@ def login(request):
       else:
         return render(request, "login.html")
 
-def register(request):
-    user_count = User.objects.count()
-    if request.POST:
-         email = request.POST['email'].lower()
-         fullname = request.POST['fullname'].lower().title()
-         username = request.POST['username'].lower()
-         password1 = request.POST['password']
-         password2 = request.POST['password2']
+def register(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        #  Si el usuario ya inició sesión anteriormente, 
+        # que lo lleve al menu index si ya tiene una rutina grabada
+         return redirect('index.html')      
 
-        #  Si las contrasenas son diferentes, enviar mensaje de error
-         if password1 != password2:
-              return render() 
+    # Variable para guardar futuro mensaje de error
+    contexto = {}   
 
-         for i in range(user_count):
-            if username in User.objects.get(username):
-                 pass
-                 
+    if request.method == 'POST':
+        form = RegistationForm(request.POST)
+        if form.is_valid():
+             form.save()
+             email = form.cleaned_data.get('email').lower()
+             contrasena = form.cleaned_data.get('password')
+             cuenta = authenticate(email = email, password = contrasena)
+             login(request, cuenta)       
+             return render(request, "index-after-firstlogin.html")
+        else: 
+             #  Guardo el mensaje de error
+             contexto['form'] = form           
+    return render(request, "register.html", contexto)
 
-        # Utilizo la clase de usuario predefinida de Django
-         user = User.objects.create_user(username=username, email=email, password=password1, fullname = fullname)
-
-
-         return render(request, "index-after-firstlogin.html", {'user':user})
-    else:                
-        return render(request, "register.html")
 
 # @login_required
 # def logout(request):

@@ -32,14 +32,6 @@
     margin: 1rem;
 }
 
-/* Agregar mediaquery para que se vea mas 
-grande segun la dimension */
-
-.menu-login>.form-floating {
-    width: 285px;
-    height: auto;
-}
-
 /******************* layout.html css part *******************/
 
 .top-nav {

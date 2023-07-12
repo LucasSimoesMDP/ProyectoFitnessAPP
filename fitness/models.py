@@ -1,9 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 
 # Create your models here.
 
-class User(AbstractUser):
-    fullname = models.FloatField()
-    peso = models.FloatField()
-    altura = models.FloatField()
+class CustomUser(AbstractUser):
+    fullname = models.TextField(blank=True)
+    peso = models.FloatField(blank=True)
+    altura = models.FloatField(blank=True)
+
+    custom_groups = models.ManyToManyField(Group)
+
+    def __str__(self):
+        return self.username
