@@ -18,13 +18,13 @@ def login(request):
     #Filtro si el usuario escribio su username o su mail para iniciar sesion        
         
       else:
-        return render(request, "login")
+        return render(request, "login.html")
 
 def register(request, *args, **kwargs):
     if request.user.is_authenticated:
         #  Si el usuario ya inició sesión anteriormente, 
         # que lo lleve al menu index si ya tiene una rutina grabada
-         return redirect('index')      
+         return redirect('index.html')      
 
     # Variable para guardar futuro mensaje de error
     context = {}   
@@ -33,15 +33,15 @@ def register(request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
         if form.is_valid():
              form.save()
-             email = form.cleaned_data.get('email').lower()
+             username = form.cleaned_data.get('username').lower()
              contrasena = form.cleaned_data.get('password1')
-             cuenta = authenticate(email = email, password = contrasena)
+             cuenta = authenticate(username = username, password = contrasena)
              login(request, cuenta)       
-             return render(request, "index-after-fistlogin")
+             return render(request, "index-after-fistlogin.html")
         else: 
              #  Guardo el mensaje de error
              context['form'] = form                       
-    return render(request, "register", context)
+    return render(request, "register.html", context)
 
 
 # @login_required
