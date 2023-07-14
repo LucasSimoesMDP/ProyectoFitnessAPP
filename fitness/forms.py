@@ -1,11 +1,21 @@
+from typing import Any
 from django import forms
 from .models import CustomUser
 from django.contrib.auth.forms import UserCreationForm
 
-class RegistationForm(UserCreationForm):
+class RegistrationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['username','email','fullname','password','password2']
+        fields = ['email','fullname','username','password1','password2']
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm,self).__init__(*args, **kwargs)
+        self.fields['email'].required = False
+        self.fields['fullname'].required = False
+        self.fields['username'].required = False
+        self.fields['password1'].required = False
+        self.fields['password2'].required = False
+
         
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
@@ -17,7 +27,8 @@ class RegistationForm(UserCreationForm):
         raise forms.ValidationError('La dirección de correo ya se está utilizando')
     
     def clean_fullname(self):
-        fullname = self.cleaned_data['first_name'].lower().title()
+        fullname = self.cleaned_data['fullname'].lower().title()
+        
         # last_name = self.cleaned_data['last_name'].lower().title()
         # fullname = f"{first_name} {last_name}"
         return fullname
@@ -32,7 +43,7 @@ class RegistationForm(UserCreationForm):
         raise forms.ValidationError(f'El nombre de usuario {username} ya se está utilizando')
     
     def compare_passwords(self):
-        pw1 = self.cleaned_data['password']
+        pw1 = self.cleaned_data['password1']
         pw2 = self.cleaned_data['password2']
         if pw1 != pw2:
             raise forms.ValidationError('Las contraseñas no coinciden')

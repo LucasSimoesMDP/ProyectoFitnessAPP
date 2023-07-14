@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import models
 from django.contrib.auth.models import User
-from .forms import RegistationForm
+from .forms import RegistrationForm
 
 
 # Create your views here.
@@ -18,30 +18,30 @@ def login(request):
     #Filtro si el usuario escribio su username o su mail para iniciar sesion        
         
       else:
-        return render(request, "login.html")
+        return render(request, "login")
 
 def register(request, *args, **kwargs):
     if request.user.is_authenticated:
         #  Si el usuario ya inició sesión anteriormente, 
         # que lo lleve al menu index si ya tiene una rutina grabada
-         return redirect('index.html')      
+         return redirect('index')      
 
     # Variable para guardar futuro mensaje de error
-    contexto = {}   
+    context = {}   
 
     if request.method == 'POST':
-        form = RegistationForm(request.POST)
+        form = RegistrationForm(request.POST or None)
         if form.is_valid():
              form.save()
              email = form.cleaned_data.get('email').lower()
-             contrasena = form.cleaned_data.get('password')
+             contrasena = form.cleaned_data.get('password1')
              cuenta = authenticate(email = email, password = contrasena)
              login(request, cuenta)       
-             return render(request, "index-after-firstlogin.html")
+             return render(request, "index-after-fistlogin")
         else: 
              #  Guardo el mensaje de error
-             contexto['form'] = form           
-    return render(request, "register.html", contexto)
+             context['form'] = form                       
+    return render(request, "register", context)
 
 
 # @login_required
