@@ -22,8 +22,20 @@
             <form method="post" action="/login/"
                 style="align-items: center;justify-content: center;display: flex;flex-direction: column;">
                 {% csrf_token %}
+                {% for field in form %}
+                <p>
+                {% for error in field.errors %}
+                <p style="color: red;">{{ error }}</p>        
+                {% endfor %}
+                </p>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                <div style="color: red;">
+                  <p>{{ form.non_field_errors }}</p> 
+                </div>
+                {% endif %}
                 <div class="form-floating" style="min-width: 350px;">
-                    <input class="form-control" name="usernameormail" id="usuarioNombreOEmail">
+                    <input class="form-control" name="username_or_email" id="usuarioNombreOEmail">
                     <label for="usuarioNombreOEmail">Correo electrónico o nombre de usuario</label>
                 </div>
                 <div class="form-floating" style="min-width: 350px;margin: 1.5rem;">

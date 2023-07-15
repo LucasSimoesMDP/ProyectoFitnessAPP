@@ -133,7 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # django_project/settings.py
 LOGIN_REDIRECT_URL = "index"
-# LOGOUT_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "index"
 
 # Se creo el modelo de Custom user
 AUTH_USER_MODEL="fitness.CustomUser"

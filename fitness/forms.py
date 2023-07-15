@@ -1,7 +1,8 @@
 from typing import Any
 from django import forms
 from .models import CustomUser
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import authenticate
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -49,3 +50,15 @@ class RegistrationForm(UserCreationForm):
             raise forms.ValidationError('Las contraseñas no coinciden')
         else:
             return pw1
+        
+class LoginForm(AuthenticationForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username_or_email','password']  
+
+    def cleaned_username_or_email(self):        
+        user = self.cleaned_data['username_or_email'].lower()
+        password = self.cleaned_data['password']
+        if not authenticate(username = user, password=password):
+            if not authenticate(email = user, password=password):
+                raise forms.ValidationError('La contraseña es incorrecta')
