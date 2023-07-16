@@ -132,7 +132,10 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # django_project/settings.py
-LOGIN_REDIRECT_URL = "index"
+# POR HACER: si usuario ya eligio su primera rutina, deberia redirigirlo a un menu diferente al de la primera vez
+#LOGIN_REDIRECT_URL = "login"
+
+
 LOGOUT_REDIRECT_URL = "index"
 
 # Se creo el modelo de Custom user

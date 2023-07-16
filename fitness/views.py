@@ -3,11 +3,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm
 
-
-# Create your views here.
-def index(request):
-    return render(request, "index.html")
-
 def login_view(request,*args, **kwargs):
            
     context = {}
@@ -16,7 +11,7 @@ def login_view(request,*args, **kwargs):
         #  Si el usuario ya inició sesión anteriormente, 
         # que lo lleve al menu index si ya tiene una rutina grabada
         # Si nunca hizo una rutina, lo deberia llevar a index after first login        
-        return redirect('index.html')   
+        return redirect('index-firstroutine')   
 
     if request.method == 'POST':
         form = LoginForm(request.POST or None)
@@ -33,20 +28,18 @@ def login_view(request,*args, **kwargs):
         #  Si el usuario ya inició sesión anteriormente, 
         # que lo lleve al menu index si ya tiene una rutina grabada
         # Si nunca hizo una rutina, lo deberia llevar a index after first login  
-            return render(request, "index-firstroutine.html")
+            return redirect("index-firstroutine.html")
         else:            
             #  Guardo el mensaje de error
             context['form'] = form                       
-    return render(request, "login.html", context)   
-
-        
+    return render(request, 'login.html', context)           
 
 def register_view(request, *args, **kwargs):
     if request.user.is_authenticated:
         #  Si el usuario ya inició sesión anteriormente, 
         # que lo lleve al menu index si ya tiene una rutina grabada
         # Si nunca hizo una rutina, lo deberia llevar a index after first login        
-        return redirect('index.html')      
+        return redirect('index-firstroutine')      
 
     # Variable para guardar futuro mensaje de error
     context = {}   
@@ -59,16 +52,25 @@ def register_view(request, *args, **kwargs):
              contrasena = form.cleaned_data.get('password1')
              cuenta = authenticate(username = username, password = contrasena)
              login(request, cuenta)       
-             return redirect(request, "index-firstroutine.html")
+             return redirect("index-firstroutine.html")
         else: 
              #  Guardo el mensaje de error
              context['form'] = form                       
     return render(request, "register.html", context)
 
+# Create your views here.
+def index(request):
+    if request.user.is_authenticated:
+        #  Si el usuario ya inició sesión anteriormente, 
+        # que lo lleve al menu index si ya tiene una rutina grabada
+        # Si nunca hizo una rutina, lo deberia llevar a index after first login        
+        return redirect('index-firstroutine')   
+    return render(request, "index.html")
+
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('index.html')
+    return redirect('index')
 
 @login_required
 def my_profile(request):
