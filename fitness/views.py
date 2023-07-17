@@ -14,7 +14,7 @@ def login_view(request,*args, **kwargs):
         return redirect('index-firstroutine')   
 
     if request.method == 'POST':
-        form = LoginForm(request.POST or None)
+        form = LoginForm(request.POST)
         if form.is_valid():
             is_email = '@' in form.cleaned_data['username_or_email']
             password = form.cleaned_data['password']
@@ -28,7 +28,7 @@ def login_view(request,*args, **kwargs):
         #  Si el usuario ya inició sesión anteriormente, 
         # que lo lleve al menu index si ya tiene una rutina grabada
         # Si nunca hizo una rutina, lo deberia llevar a index after first login  
-            return redirect("index-firstroutine.html")
+            return redirect('index-firstroutine')
         else:            
             #  Guardo el mensaje de error
             context['form'] = form                       
@@ -45,14 +45,14 @@ def register_view(request, *args, **kwargs):
     context = {}   
 
     if request.method == 'POST':
-        form = RegistrationForm(request.POST or None)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
              form.save()
              username = form.cleaned_data.get('username').lower()
              contrasena = form.cleaned_data.get('password1')
              cuenta = authenticate(username = username, password = contrasena)
              login(request, cuenta)       
-             return redirect("index-firstroutine.html")
+             return redirect('index-firstroutine')
         else: 
              #  Guardo el mensaje de error
              context['form'] = form                       
