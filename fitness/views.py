@@ -16,19 +16,20 @@ def login_view(request,*args, **kwargs):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            is_email = '@' in form.cleaned_data['username_or_email']
+            username_or_email = form.cleaned_data['username_or_email'].lower()
             password = form.cleaned_data['password']
-            if is_email:
-                email = form.cleaned_data['username_or_email']
-                cuenta = authenticate(email = email, password = password)  
+            if '@' in username_or_email:
+                cuenta = authenticate(email = username_or_email, password = password)  
             else:
-                username = form.cleaned_data['username_or_email']
-                cuenta = authenticate(username = username, password = password)  
-            login(request,cuenta)
-        #  Si el usuario ya inició sesión anteriormente, 
-        # que lo lleve al menu index si ya tiene una rutina grabada
-        # Si nunca hizo una rutina, lo deberia llevar a index after first login  
-            return redirect('index-firstroutine')
+                cuenta = authenticate(username = username_or_email, password = password) 
+            if cuenta is not None:
+                login(request,cuenta)
+            #  Si el usuario ya inició sesión anteriormente, 
+            # que lo lleve al menu index si ya tiene una rutina grabada
+            # Si nunca hizo una rutina, lo deberia llevar a index after first login  
+                return redirect('index-firstroutine')
+            else:
+                form.add_error(None,'Credenciales invalidas')
         else:            
             #  Guardo el mensaje de error
             context['form'] = form                       

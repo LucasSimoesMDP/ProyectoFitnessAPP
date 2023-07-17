@@ -106,7 +106,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -126,7 +126,7 @@ STATICFILES_DIRS = [
     "C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/static",
 ]
 
-# Default primary key field type
+# Default primary   key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

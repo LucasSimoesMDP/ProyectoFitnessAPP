@@ -1,8 +1,9 @@
 from typing import Any
 from django import forms
 from .models import CustomUser
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, get_user_model
+from django.db import models
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -51,14 +52,23 @@ class RegistrationForm(UserCreationForm):
         else:
             return pw1
         
-class LoginForm(AuthenticationForm):
-    class Meta:
-        model = CustomUser
-        fields = ['username_or_email','password']  
+class LoginForm(forms.Form):
+    username_or_email = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
 
-    def cleaned_username_or_email(self):        
-        user = self.cleaned_data['username_or_email'].lower()
-        password = self.cleaned_data['password']
-        if not authenticate(username = user, password=password):
-            if not authenticate(email = user, password=password):
-                raise forms.ValidationError('La contraseña es incorrecta')
+    def clean(self):
+        cleaned_data = super().clean()
+        username_or_email = cleaned_data['username_or_email'].lower()        
+        password = cleaned_data['password']
+
+        if username_or_email and password:
+            UserModel = get_user_model()
+            if '@' in username_or_email:    
+                cuenta = UserModel.objects.get(email=username_or_email)
+                if not cuenta.check_password(password):
+                    cuenta = None
+            else:
+                cuenta = authenticate(username= username_or_email, password = password)
+        if not cuenta:
+            raise forms.ValidationError('Las credenciales son incorrectas')
+        return cleaned_data
