@@ -62,10 +62,13 @@ class LoginForm(forms.Form):
         password = cleaned_data['password']
 
         if username_or_email and password:
-            UserModel = get_user_model()
-            if '@' in username_or_email:    
-                cuenta = UserModel.objects.get(email=username_or_email)
-                if not cuenta.check_password(password):
+            UserModel = get_user_model()            
+            if '@' in username_or_email:
+                try:    
+                    cuenta = UserModel.objects.get(email=username_or_email)
+                    if not cuenta.check_password(password):
+                        cuenta = None 
+                except CustomUser.DoesNotExist:
                     cuenta = None
             else:
                 cuenta = authenticate(username= username_or_email, password = password)

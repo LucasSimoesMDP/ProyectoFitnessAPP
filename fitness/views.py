@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout 
+from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm
 
@@ -19,7 +19,8 @@ def login_view(request,*args, **kwargs):
             username_or_email = form.cleaned_data['username_or_email'].lower()
             password = form.cleaned_data['password']
             if '@' in username_or_email:
-                cuenta = authenticate(email = username_or_email, password = password)  
+                cuenta = get_user_model().objects.get(email=username_or_email)
+                cuenta = authenticate(username = cuenta.get_username(), password = password)  
             else:
                 cuenta = authenticate(username = username_or_email, password = password) 
             if cuenta is not None:
