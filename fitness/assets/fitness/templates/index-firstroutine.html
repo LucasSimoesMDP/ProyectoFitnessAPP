@@ -38,7 +38,7 @@
         <div class="menu">
             <div>
                 <ul>
-                    <li><a href='#'>Mi perfil</a></li>
+                    <li><a href="{% url 'my_profile' %}">Mi perfil</a></li>
                     <li><a href='#'>Ajustes</a></li>
                     <hr style="display: flex; align-items: center; height: auto;">
                     <li><a href='/logout'>Cerrar sesion</a></li>
@@ -58,7 +58,7 @@
     </main>
     <footer>
         <nav class="nav-unico-index">
-            <a href="#" class="nav-link link-active">
+            <a href="{% url 'subir_rutina1' %}" class="nav-link link-active">
                 <i class="material-symbols-outlined">add_circle</i>
                 <span class="nav-text">Agregar rutina</span>
             </a>
