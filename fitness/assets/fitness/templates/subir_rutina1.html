@@ -1,16 +1,41 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block content %}
-<style>
+<script>
+    const dias_elegidos_por_usuario = [];
+
+    const dias_gym_btn = document.getElementsByClassName('btn-outline-success');
+
+    function guardar_dia_elegido() {
+        dias_elegidos_por_usuario = dias_gym_btn.outerHTML 
+    }
+
+    for(let i = 0; i < dias_gym_btn.length; i++){
+        dias_gym_btn[i].addEventListener("click", guardar_dia_elegido);
+    }
+
+
     /* Cosas que hacer en el js: 
 
-        / Guardar todos los valores que el usuario marca de ¿Qué días vas al GYM? en una variable para mandar al backend
-        /
-    
-    
+        / Guardar todos los valores que el usuario marca de 
+        ¿Qué días vas al GYM? en una variable para mandar al backend
+        
+        / Cuando se elige AL MENOS UN DIA, el boton de siguente para ir a 
+        subir rutina 2 tiene que transformarse en CLICKEABLE
+
+        / Permitirle al usuario que SI QUIERE, marque en el calendario
+        UN SOLO dia, para mandarlo como variable al backend
+
+        / En el calendar, debo hacer el js de todos los meses desde el dia actual 
+        hasta dentro de un año, para que se despliegue todo automaticamente
+
+        / En el calendar, debo hacer el js donde SOLO pueda clickear UNA UNICA FECHA, 
+        que cambie su color a verde
+ 
+
     
     */
-</style>
+</script>
 
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
@@ -26,23 +51,19 @@
 <div class="txt-rutina">
     <h1>¿Qué días vas al GYM?</h1>
     <form class="dias">
-        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck1">Lunes</label>
             <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck2">Martes</label>
             <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck3">Miercoles</label>
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck4">Jueves</label>
             <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck5">Viernes</label>
             <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck6">Sabado</label>
-        </div>
-        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck7">Domingo</label>
         </div>
