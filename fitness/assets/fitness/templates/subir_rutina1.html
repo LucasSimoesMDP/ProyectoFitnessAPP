@@ -1,56 +1,21 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block content %}
-<script>
-    const dias_elegidos_por_usuario = [];
-
-    const dias_gym_btn = document.getElementsByClassName('btn-outline-success');
-
-    function guardar_dia_elegido() {
-        dias_elegidos_por_usuario = dias_gym_btn.outerHTML 
-    }
-
-    for(let i = 0; i < dias_gym_btn.length; i++){
-        dias_gym_btn[i].addEventListener("click", guardar_dia_elegido);
-    }
-
-
-    /* Cosas que hacer en el js: 
-
-        / Guardar todos los valores que el usuario marca de 
-        ¿Qué días vas al GYM? en una variable para mandar al backend
-        
-        / Cuando se elige AL MENOS UN DIA, el boton de siguente para ir a 
-        subir rutina 2 tiene que transformarse en CLICKEABLE
-
-        / Permitirle al usuario que SI QUIERE, marque en el calendario
-        UN SOLO dia, para mandarlo como variable al backend
-
-        / En el calendar, debo hacer el js de todos los meses desde el dia actual 
-        hasta dentro de un año, para que se despliegue todo automaticamente
-
-        / En el calendar, debo hacer el js donde SOLO pueda clickear UNA UNICA FECHA, 
-        que cambie su color a verde
- 
-
-    
-    */
-</script>
-
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-      <li class="page-item disabled"><a class="page-link">Anterior</a></li>
-      <li class="page-item active"><a class="verde page-link ">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#">Siguiente</a>
-      </li>
+        <li class="page-item disabled"><a class="page-link">Anterior</a></li>
+        <li class="page-item active"><a class="verde page-link ">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Siguiente</a>
+        </li>
     </ul>
-  </nav>
+</nav>
 <div class="txt-rutina">
+    <button class="btn btn-dark" type="submit" form="crearFormulario" id="formCompletoBtn" style="margin-bottom: 2rem; display: none;">Continuar a la siguiente pagina</button>
     <h1>¿Qué días vas al GYM?</h1>
-    <form class="dias">
+    <form class="dias" method="post" id="crearFormulario" action="/subir_rutina3/" >
         <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck1">Lunes</label>
@@ -74,62 +39,129 @@
         <div class="body-calendario">
             <div class="calendario">
                 <header>
-                    <p class="fecha-actual">Junio 2023</p>
+                    <p class="fecha-actual"></p>
                     <div class="flechas-calendario">
-                        <span class="material-symbols-outlined">chevron_left</span>
-                        <span class="material-symbols-outlined">chevron_right</span>
+                        <span id="prev" class="material-symbols-outlined">chevron_left</span>
+                        <span id="next" class="material-symbols-outlined">chevron_right</span>
                     </div>
                 </header>
                 <div class="cuerpo-calendario">
                     <ul class="calendario-semana">
+                        <li>Dom</li>
                         <li>Lun</li>
                         <li>Mar</li>
                         <li>Mie</li>
                         <li>Jue</li>
                         <li>Vie</li>
-                        <li>Sab</li>
-                        <li>Dom</li>
+                        <li>Sab</li>                        
                     </ul>
                     <ul class="calendario-dias">
-                        <li class="inactive">29</li>
-                        <li class="inactive">30</li>
-                        <li class="inactive">31</li>
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
-                        <li>5</li>
-                        <li>6</li>
-                        <li>7</li>
-                        <li>8</li>
-                        <li>9</li>
-                        <li>10</li>
-                        <li>11</li>
-                        <li>12</li>
-                        <li>13</li>
-                        <li>14</li>
-                        <li>15</li>
-                        <li>16</li>
-                        <li>17</li>
-                        <li>18</li>
-                        <li>19</li>
-                        <li>20</li>
-                        <li>21</li>
-                        <li>22</li>
-                        <li>23</li>
-                        <li>24</li>
-                        <li>25</li>
-                        <li>26</li>
-                        <li>27</li>
-                        <li>28</li>
-                        <li>29</li>
-                        <li>30</li>
-                        <li class="inactive">1</li>
-                        <li class="inactive">2</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+    // Parte  del boton de rutina
+    const continuar_btn = document.getElementById('formCompletoBtn')
+    const checks = document.querySelectorAll('.btn-check')
+    
+
+    checks.forEach(function(boton) {
+        boton.addEventListener('click', function(){
+            let boton_marcado = false
+            for(let i = 0; i < checks.length; i++){
+                if(checks[i].checked){
+                    boton_marcado = true
+                };
+        }
+
+        if(boton_marcado){
+            continuar_btn.style.display = 'flex';
+        }
+        else{
+            continuar_btn.style.display = 'none';
+        }
+
+        })        
+    }); 
+    
+        // JS del calendario
+        const currentDate = document.querySelector('.fecha-actual'), // Cambio mes y año
+        daysNameVariable = document.querySelector('.calendario-semana'), // Comienzo de lista para los dias Lun, Mar, Mie ...etc       
+        daysVariable = document.querySelector('.calendario-dias'), // Comienzo de lista para numeros
+        previousNextIcon = document.querySelectorAll('.flechas-calendario span');
+
+
+        let date = new Date(), // Fecha actual
+        currentYear = date.getFullYear(),
+        currentMonth = date.getMonth();
+
+        const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+        const daysName = ['Lun','Mar','Mie','Jue','Vie','Sab','Dom'];
+
+        const renderCalendar = () => {
+            let thisMonthsFirstDay = new Date(currentYear, currentMonth, 1).getDay(), // numero del dia de la semana del 1ro del ACTUAL mes
+            thisMonthsLastDate = new Date(currentYear, currentMonth + 1, 0).getDate(), // Ultimo dia de ACTUAL mes
+            thisMonthsLastDay = new Date(currentYear, currentMonth, thisMonthsLastDate).getDay(), // numero del dia de la semana del (ultimo dia) del ACTUAL mes     
+            lastDateOfPreviousMonth = new Date(currentYear, currentMonth, 0).getDate(); //Ultimo dia del mes PASADO 
+            let liTag = '';
+
+            //En el siguiente codigo, agrego los (numeros) dias al calendario
+            for (let i = thisMonthsFirstDay; i > 0; i--) {
+                liTag += `<li class='inactive'>${lastDateOfPreviousMonth - i + 1}</li>`;
+            }
+
+            for(let i = 1; i <= thisMonthsLastDate; i++) {                
+                liTag += `<li>${i}</li>`;
+            }
+            
+            for(let i = thisMonthsLastDay; i < 6; i++) {
+                liTag += `<li class='inactive'>${i - thisMonthsLastDay + 1}</li>`;
+            }
+
+            currentDate.innerText = `${months[currentMonth]} ${currentYear}`; // Muestra en header el mes y año actual
+            daysVariable.innerHTML = liTag;
+
+        }
+
+        renderCalendar();
+
+        previousNextIcon.forEach(icon => {
+            icon.addEventListener('click',() =>{
+                currentMonth = icon.id === 'prev' ? currentMonth - 1 : currentMonth + 1;
+
+                if(currentMonth < 0 || currentMonth > 11) {
+                    date = new Date(currentYear,currentMonth);
+                    currentYear = date.getFullYear();
+                    currentMonth = date.getMonth();
+                }
+                else{
+                    date = new Date();
+                }
+                renderCalendar();
+            })
+        })
+//     /* Cosas que hacer en el js:
+
+//         / Guardar todos los valores que el usuario marca de 
+//         ¿Qué días vas al GYM? en una variable para mandar al backend => FALTA HACER LA PARTE DEL BACKEND RECIBIENDO EL FORM CON LA INFO!!
+
+        
+//         / Cuando se elige AL MENOS UN DIA, el boton de siguente para ir a 
+//         subir rutina 2 tiene que transformarse en CLICKEABLE
+
+//         / Permitirle al usuario que SI QUIERE, marque en el calendario
+//         UN SOLO dia, para mandarlo como variable al backend
+
+//         / En el calendar, debo hacer el js de todos los meses desde el dia actual 
+//         hasta dentro de un año, para que se despliegue todo automaticamente
+
+//         / En el calendar, debo hacer el js donde SOLO pueda clickear UNA UNICA FECHA, 
+//         que cambie su color a verde 
+    
+</script> 
+
 {% endblock %}
