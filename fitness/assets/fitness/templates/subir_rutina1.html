@@ -111,15 +111,15 @@
 
             //En el siguiente codigo, agrego los (numeros) dias al calendario
             for (let i = thisMonthsFirstDay; i > 0; i--) {
-                liTag += `<li class='inactive'>${lastDateOfPreviousMonth - i + 1}</li>`;
+                liTag += `<li class='inactive number'>${lastDateOfPreviousMonth - i + 1}</li>`;
             }
 
             for(let i = 1; i <= thisMonthsLastDate; i++) {                
-                liTag += `<li>${i}</li>`;
+                liTag += `<li class='number'>${i}</li>`;
             }
             
             for(let i = thisMonthsLastDay; i < 6; i++) {
-                liTag += `<li class='inactive'>${i - thisMonthsLastDay + 1}</li>`;
+                liTag += `<li class='inactive number'>${i - thisMonthsLastDay + 1}</li>`;
             }
 
             currentDate.innerText = `${months[currentMonth]} ${currentYear}`; // Muestra en header el mes y año actual
@@ -127,7 +127,20 @@
 
         }
 
-        renderCalendar();
+        //Tomar valor que usuario clickee dentro del calendario
+        const getInfoFromCalendar = () => {
+            daysNumber = document.querySelectorAll('.number');
+            daysNumber.forEach(dayNumber => {
+                dayNumber.addEventListener('click',()=>{
+                    console.log(dayNumber.innerText)
+                    console.log(currentYear)
+                    console.log(months[currentMonth])
+                    })
+                })
+        }
+
+        renderCalendar(); //Render de calendario para este mes 
+        getInfoFromCalendar();
 
         previousNextIcon.forEach(icon => {
             icon.addEventListener('click',() =>{
@@ -142,8 +155,13 @@
                     date = new Date();
                 }
                 renderCalendar();
+                getInfoFromCalendar();
             })
         })
+
+        const sendDataToBackend = () => {
+            
+        }
 //     /* Cosas que hacer en el js:
 
 //         / Guardar todos los valores que el usuario marca de 
