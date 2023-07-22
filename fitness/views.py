@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm
+from django.http import JsonResponse
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 def login_view(request,*args, **kwargs):
            
@@ -79,11 +82,16 @@ def my_profile(request):
     return render(request,"my_profile.html")
 
 @login_required
+@csrf_exempt
 def subir_rutina(request):
     return render(request, "subir_rutina1.html")
 
 @login_required
+@csrf_exempt
 def subir_rutina_p2(request):
+    if request.method == 'POST':
+        data = request.body 
+        print(data)
     return render(request, "subir_rutina2.html")
 
 @login_required

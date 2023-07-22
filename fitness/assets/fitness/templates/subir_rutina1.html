@@ -13,9 +13,10 @@
     </ul>
 </nav>
 <div class="txt-rutina">
-    <button class="btn btn-dark" type="submit" form="crearFormulario" id="formCompletoBtn" style="margin-bottom: 2rem; display: none;">Continuar a la siguiente pagina</button>
+    <!-- Agregar al siguiente boton type="submit" form="crearFormulario" luego de hacer el TEST -->
+    <button class="btn btn-dark" id="formCompletoBtn" type="submit" form="crearFormulario" onclick="sendDataToBackend()" style="margin-bottom: 2rem; display: none;">Continuar a la siguiente pagina</button>
     <h1>¿Qué días vas al GYM?</h1>
-    <form class="dias" method="post" id="crearFormulario" action="/subir_rutina3/" >
+    <form class="dias" method="post" id="crearFormulario" action="/subir_rutina2/" >
         <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck1">Lunes</label>
@@ -128,13 +129,14 @@
         }
 
         //Tomar valor que usuario clickee dentro del calendario
+        let dueDateDay, dueDateMonth, dueDateYear;
         const getInfoFromCalendar = () => {
             daysNumber = document.querySelectorAll('.number');
             daysNumber.forEach(dayNumber => {
                 dayNumber.addEventListener('click',()=>{
-                    console.log(dayNumber.innerText)
-                    console.log(currentYear)
-                    console.log(months[currentMonth])
+                    dueDateDay = dayNumber.innerText;
+                    dueDateYear = currentYear;
+                    dueDateMonth = months[currentMonth];
                     })
                 })
         }
@@ -160,8 +162,21 @@
         })
 
         const sendDataToBackend = () => {
-            
+            let dueDate = dueDateDay + '-' + dueDateMonth + '-' + dueDateYear;
+            $.ajax({
+                type: "POST",
+                url: "{% url 'subir_rutina2' %}",
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(dueDate),
+                success: function (response) {
+                            window.location.href = response.redirect
+                        }
+            })
+            // EN CONSTRUCCION: Necesito que NO SE PUEDAN CLICKEAR los dias del calendario que se encuentran con la clase INACTIVE
+            // Para asegurarme de no enviar informacion erronea
         }
+
 //     /* Cosas que hacer en el js:
 
 //         / Guardar todos los valores que el usuario marca de 
