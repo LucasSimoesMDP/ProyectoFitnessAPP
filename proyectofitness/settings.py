@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -55,9 +56,10 @@ ROOT_URLCONF = 'proyectofitness.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/templates',
-                 'C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/templates'
-                 ],
+        'DIRS': [ os.path.join(BASE_DIR,'fitness/assets/fitness/templates' )
+            # 'E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/templates',
+            #      'C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/templates'
+                  ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,8 +124,8 @@ STATIC_URL = 'fitness/assets/fitness/static/'
 
 #Add this in your settings.py file:
 STATICFILES_DIRS = [
-    BASE_DIR / "E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/", 
-    "C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/static",
+     BASE_DIR /  os.path.join(BASE_DIR,'fitness/assets/fitness/templates') #"E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/", 
+    # "C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/static/",
 ]
 
 # Default primary   key field type

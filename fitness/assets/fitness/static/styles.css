@@ -487,10 +487,6 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     color: #aaa;
 }
 
-.calendario-dias li.active {
-    color: #fff;
-}
-
 .calendario-dias li::before {
     position: absolute;
     content: "";
@@ -503,11 +499,7 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     transform: translate(-50%, -50%);
 }
 
-.calendario-dias li.active::before {
-    background: #198754;
-}
-
-.calendario-dias li:not(.active):hover::before {
+.calendario-dias li:not(.inactive):hover::before {
     background: #f2f2f2;
 }
 
