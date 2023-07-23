@@ -13,24 +13,23 @@
     </ul>
 </nav>
 <div class="txt-rutina">
-    <!-- Agregar al siguiente boton type="submit" form="crearFormulario" luego de hacer el TEST -->
     <button class="btn btn-dark" id="formCompletoBtn" type="submit" form="crearFormulario" onclick="sendDataToBackend()" style="margin-bottom: 2rem; display: none;">Continuar a la siguiente pagina</button>
     <h1>¿Qué días vas al GYM?</h1>
     <form class="dias" method="post" id="crearFormulario" action="/subir_rutina2/" >
         <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
-            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Lunes" id="btncheck1" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck1">Lunes</label>
-            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Martes" id="btncheck2" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck2">Martes</label>
-            <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Miercoles" id="btncheck3" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck3">Miercoles</label>
-            <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Jueves" id="btncheck4" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck4">Jueves</label>
-            <input type="checkbox" class="btn-check" id="btncheck5" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Viernes" id="btncheck5" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck5">Viernes</label>
-            <input type="checkbox" class="btn-check" id="btncheck6" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Sabado" cid="btncheck6" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck6">Sabado</label>
-            <input type="checkbox" class="btn-check" id="btncheck7" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Domingo" id="btncheck7" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck7">Domingo</label>
         </div>
     </form>
@@ -112,7 +111,7 @@
 
             //En el siguiente codigo, agrego los (numeros) dias al calendario
             for (let i = thisMonthsFirstDay; i > 0; i--) {
-                liTag += `<li class='inactive number'>${lastDateOfPreviousMonth - i + 1}</li>`;
+                liTag += `<li class='inactive'>${lastDateOfPreviousMonth - i + 1}</li>`;
             }
 
             for(let i = 1; i <= thisMonthsLastDate; i++) {                
@@ -120,7 +119,7 @@
             }
             
             for(let i = thisMonthsLastDay; i < 6; i++) {
-                liTag += `<li class='inactive number'>${i - thisMonthsLastDay + 1}</li>`;
+                liTag += `<li class='inactive'>${i - thisMonthsLastDay + 1}</li>`;
             }
 
             currentDate.innerText = `${months[currentMonth]} ${currentYear}`; // Muestra en header el mes y año actual
@@ -137,6 +136,15 @@
                     dueDateDay = dayNumber.innerText;
                     dueDateYear = currentYear;
                     dueDateMonth = months[currentMonth];
+                    // Cambio el valor del numero activo segun eleccion de usuario
+                    if(document.querySelectorAll('.activo').length === 0){
+                        dayNumber.classList.add('activo'); 
+                    }
+                    else{
+                        let prev = document.querySelectorAll('.activo')[0];
+                        prev.classList.remove('activo');
+                        dayNumber.classList.add('activo'); 
+                    }        
                     })
                 })
         }
@@ -163,6 +171,8 @@
 
         const sendDataToBackend = () => {
             let dueDate = dueDateDay + '-' + dueDateMonth + '-' + dueDateYear;
+            const form = document.getElementById('crearFormulario');
+            form.submit();
             $.ajax({
                 type: "POST",
                 url: "{% url 'subir_rutina2' %}",
@@ -173,8 +183,6 @@
                             window.location.href = response.redirect
                         }
             })
-            // EN CONSTRUCCION: Necesito que NO SE PUEDAN CLICKEAR los dias del calendario que se encuentran con la clase INACTIVE
-            // Para asegurarme de no enviar informacion erronea
         }
 
 //     /* Cosas que hacer en el js:

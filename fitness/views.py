@@ -90,8 +90,10 @@ def subir_rutina(request):
 @csrf_exempt
 def subir_rutina_p2(request):
     if request.method == 'POST':
-        data = request.body 
-        print(data)
+        fecha_vencimiento_gym = request.body
+        dias_de_gym = request.POST.getlist('dias')
+        print(fecha_vencimiento_gym)
+        print(dias_de_gym)
     return render(request, "subir_rutina2.html")
 
 @login_required

@@ -124,7 +124,8 @@ STATIC_URL = 'fitness/assets/fitness/static/'
 
 #Add this in your settings.py file:
 STATICFILES_DIRS = [
-     BASE_DIR /  os.path.join(BASE_DIR,'fitness/assets/fitness/templates') #"E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/", 
+     BASE_DIR / STATIC_URL
+    #  os.path.join(BASE_DIR,'fitness/assets/fitness/templates/') #"E:/ArchivosLUCAS/proyectofitness/fitness/assets/fitness/static/", 
     # "C:/Users/Gabriel/Documents/ArchivosLucas/proyectoFitness/ProyectoFitnessAPP/fitness/assets/fitness/static/",
 ]
 

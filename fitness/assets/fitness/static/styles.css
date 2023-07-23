@@ -465,10 +465,14 @@ en las media querys para que se adapte mejor a todas las dimensiones */
     margin-bottom: 20px;
 }
 
-.cuerpo-calendario li {
-    color: #333;
+.cuerpo-calendario li{    
     width: calc(100% / 7);
     font-size: 1.07rem;
+    color: #fff;
+}
+
+.cuerpo-calendario li:not(.activo){
+    color: #333;
 }
 
 .cuerpo-calendario .calendario-semana li {
@@ -477,14 +481,21 @@ en las media querys para que se adapte mejor a todas las dimensiones */
 }
 
 .cuerpo-calendario .calendario-dias li {
-    z-index: 1;
-    cursor: pointer;
+    z-index: 1;    
     position: relative;
     margin-top: 15px;
 }
 
+.cuerpo-calendario .calendario-dias li:not(.inactive){
+    cursor: pointer;
+}
+
 .calendario-dias li.inactive {
     color: #aaa;
+}
+
+.calendario-dias li.activo::before {    
+    background-color: #0d6efd;    
 }
 
 .calendario-dias li::before {
@@ -500,8 +511,10 @@ en las media querys para que se adapte mejor a todas las dimensiones */
 }
 
 .calendario-dias li:not(.inactive):hover::before {
-    background: #f2f2f2;
+    background: #b1b1b1;
 }
+
+
 
 .txt-rutina>.form-floating>input {
     width: 20rem;
