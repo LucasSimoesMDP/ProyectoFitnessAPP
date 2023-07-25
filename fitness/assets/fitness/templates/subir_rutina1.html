@@ -27,7 +27,7 @@
             <label class="btn btn-outline-success" for="btncheck4">Jueves</label>
             <input type="checkbox" class="btn-check" name="dias" value="Viernes" id="btncheck5" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck5">Viernes</label>
-            <input type="checkbox" class="btn-check" name="dias" value="Sabado" cid="btncheck6" autocomplete="off">
+            <input type="checkbox" class="btn-check" name="dias" value="Sabado" id="btncheck6" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck6">Sabado</label>
             <input type="checkbox" class="btn-check" name="dias" value="Domingo" id="btncheck7" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck7">Domingo</label>
@@ -170,19 +170,19 @@
         })
 
         const sendDataToBackend = () => {
-            let dueDate = dueDateDay + '-' + dueDateMonth + '-' + dueDateYear;
-            const form = document.getElementById('crearFormulario');
-            form.submit();
+            let dueDate =  dueDateDay + '-' + dueDateMonth + '-' + dueDateYear;
             $.ajax({
                 type: "POST",
                 url: "{% url 'subir_rutina2' %}",
                 dataType: 'json',
                 contentType: "application/json",
-                data: JSON.stringify(dueDate),
+                data: dueDate,
                 success: function (response) {
-                            window.location.href = response.redirect
-                        }
+                    window.location.href = response.redirect
+                }
             })
+            const form = document.getElementById('crearFormulario');
+            form.submit();         
         }
 
 //     /* Cosas que hacer en el js:
