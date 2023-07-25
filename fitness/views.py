@@ -90,10 +90,17 @@ def subir_rutina(request):
 def subir_rutina_p2(request):
     if request.method == 'POST':
         fecha_vencimiento_gym = request.body.decode('utf-8')
-        # Si el string no contiene la palabra dias, ES EL DUE DATE!  
-        # dias_de_gym = request.POST.getlist('dias')
         print(fecha_vencimiento_gym)
-        # print(dias_de_gym)
+        # Si el string no contiene la palabra dias, ES EL DUE DATE!
+        if 'dias' not in fecha_vencimiento_gym:
+        # Fecha de vencimiento del gym (OPCIONAL)
+            if fecha_vencimiento_gym == None:
+                print('Usuario no eligio fecha de vencimiento')
+            else:
+                print('La fecha de vencimiento es',fecha_vencimiento_gym)
+        else:
+            dias_de_gym = request.POST.getlist('dias')
+            print(dias_de_gym)
     return render(request, "subir_rutina2.html")
 
 @login_required

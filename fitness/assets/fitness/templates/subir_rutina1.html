@@ -135,7 +135,8 @@
                 dayNumber.addEventListener('click',()=>{
                     dueDateDay = dayNumber.innerText;
                     dueDateYear = currentYear;
-                    dueDateMonth = months[currentMonth];
+                    dueDateMonth = currentMonth;
+                    //dueDateMonth = months[currentMonth] // Me da el valor del mes en letras
                     // Cambio el valor del numero activo segun eleccion de usuario
                     if(document.querySelectorAll('.activo').length === 0){
                         dayNumber.classList.add('activo'); 
@@ -171,6 +172,10 @@
 
         const sendDataToBackend = () => {
             let dueDate =  dueDateDay + '-' + dueDateMonth + '-' + dueDateYear;
+             if( (dueDateYear < currentYear) || (((dueDateYear === currentYear) && (dueDateMonth < currentMonth))) ||( ((dueDateYear === currentYear) && (dueDateMonth === currentMonth) && (dueDateDay < Date.getDate())))){
+                 dueDate = null;
+             };
+
             $.ajax({
                 type: "POST",
                 url: "{% url 'subir_rutina2' %}",
