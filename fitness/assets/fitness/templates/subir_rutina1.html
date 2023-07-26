@@ -171,17 +171,19 @@
         })
 
         const sendDataToBackend = () => {
-            let dueDate =  dueDateDay + '-' + dueDateMonth + '-' + dueDateYear;
-             if( (dueDateYear < currentYear) || (((dueDateYear === currentYear) && (dueDateMonth < currentMonth))) ||( ((dueDateYear === currentYear) && (dueDateMonth === currentMonth) && (dueDateDay < Date.getDate())))){
-                 dueDate = null;
-             };
+            if( (dueDateYear < currentYear) || (((dueDateYear === currentYear) && (dueDateMonth < currentMonth))) || (( (dueDateYear === currentYear) && (dueDateMonth === currentMonth) && (dueDateDay < date.getDate() ))) ){
+                let dueDate = null;
+            }
+            else{
+                dueDate =  dueDateDay + '-' + months[dueDateMonth]+ '-' + dueDateYear;
+            };
 
             $.ajax({
                 type: "POST",
                 url: "{% url 'subir_rutina2' %}",
                 dataType: 'json',
                 contentType: "application/json",
-                data: dueDate,
+                data: JSON.stringify(dueDate),
                 success: function (response) {
                     window.location.href = response.redirect
                 }
