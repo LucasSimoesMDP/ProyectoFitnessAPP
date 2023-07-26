@@ -19,27 +19,27 @@ para el lunes -->
 <div class="txt-rutina">
     <h1 style="white-space: nowrap; font-size: 21px;">El dia Lunes ¿Qué ejercicios realizas? </h1>
     <div class="form-floating mb-3">
-        <input id="floatingEjercicioNombre" class="form-control">
+        <input id="floatingEjercicioNombre" class="form-control" required>
         <label for="floatingEjercicioNombre">Escribe el <span
                 style="color: green; font-weight: 500;">nombre</span>
             del ejercicio aqui</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="number" id="floatingEjercicioSeries" class="form-control">
+        <input type="number" id="floatingEjercicioSeries" class="form-control" required>
         <label for="floatingEjercicioSeries">Escribe cantidad de <span
                 style="color: green; font-weight: 500;">series
                 en total</span> del ejercicio</label>
     </div>
     <div class="cuestionario-peso-y-repeticiones">
         <h1>¿La cantidad de repeticiones es variable o fija?</h1>
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" aria-required="true">
             <input type="radio" class="btn-check" name="btnradio1" id="btncheck1" autocomplete="off">
             <label class="btn btn-outline-primary" for="btncheck1">Es fija</label>
             <input type="radio" class="btn-check" name="btnradio1" id="btncheck2" autocomplete="off">
             <label class="btn btn-outline-primary" for="btncheck2">Varia</label>
         </div>
         <h1> ¿Utilizas peso en este ejercicio?</h1>
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" aria-required="true">
             <input type="radio" class="btn-check" name="btnradio2" id="btncheck3" autocomplete="off"
                 onclick="mostrarLabelPeso()">
             <label class="btn btn-outline-success" for="btncheck3">Si</label>
@@ -51,25 +51,20 @@ para el lunes -->
     <!-- Que aparezca solamente cuando el usuario pone que la cantidad de peso es FIJA -->
     <div class="cuestinario-oculto">
         <h1 class="pesoFijoVariable">¿La cantidad de peso es variable o fijo?</h1>                
-        <div class="pesoFijoVariable btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="btnradio3" id="btncheck5" autocomplete="off" onclick="mostrarPesoInput()">
+        <div class="pesoFijoVariable btn-group" role="group" aria-label="Basic radio toggle button group" aria-required="false">
+            <input type="radio" class="btn-check" name="btnradio3" id="btncheck5" autocomplete="off">
             <label class="btn btn-outline-primary" for="btncheck5">Es fijo</label>
-            <input type="radio" class="btn-check" name="btnradio3" id="btncheck6" autocomplete="off" onclick="quitarPesoInput()">
+            <input type="radio" class="btn-check" name="btnradio3" id="btncheck6" autocomplete="off">
             <label class="btn btn-outline-primary" for="btncheck6">Varia</label>
-        </div>
-        <div class="input-group mb-3" id="inputPeso">
-            <div class="form-floating">
-                <input type="number" id="floatingCantidadPeso" class="form-control">
-                <label for="floatingCantidadPeso">Escribe cantidad de <span
-                        style="color: green; font-weight: 500;">peso fijo
-                    </span> del ejercicio</label>
-            </div>
-            <span class="input-group-text" id="inputGroupPrepend">kg</span>
         </div>
     </div>
     <script>
-        let inputPeso = document.getElementById('inputPeso');
+        // let inputPeso = document.getElementById('inputPeso');
         let pesoFijoVariable = document.getElementsByClassName('pesoFijoVariable');
+        let NoUtilizaPesoBoton = document.getElementById('btncheck4');
+        let pesoFijoBoton = document.getElementById('btncheck5');
+        let pesoVariableBoton = document.getElementById('btncheck6')
+
 
         function mostrarLabelPeso() {
             for(var i = 0;i<pesoFijoVariable.length;i++){
@@ -80,20 +75,45 @@ para el lunes -->
         function quitarLabelPeso() {
             for(let i = 0;i<pesoFijoVariable.length;i++){
                 pesoFijoVariable[i].style.display = 'none';
+                if (NoUtilizaPesoBoton.checked){
+                    pesoFijoBoton.checked = false;
+                    pesoVariableBoton.checked = false;
+                }        
             }
-            inputPeso.style.display = 'none';
         }
 
-        function mostrarPesoInput(){
-            inputPeso.style.display = 'flex';
-        }
+        
+    // Que hacer en el js:
 
-        function quitarPesoInput(){
-            inputPeso.style.display = 'none';
-        }
+    // El boton de Agregar ejercicio va a estar DISABLE 
+    // hasta que el usuario no complete con todos los requisitos previos.
+    // Una vez completados los requisitos, se podra clickear el boton.
+
+    // Si el boton activado se clickea, se deberia agregar un texto dentro del ul "tag-box" tal que asi:
+    // <li><span class="material-symbols-outlined">close</span>NOMBRE DEL EJERCICIO QUE PUSO EL USUARIO</li>
+
+    // La idea seria, guardar nombre,peso, serie y repeticion en una variable flotante
+    //Ejemplo:
+    // 'Ejercicio' : 'Abdominales Cortos'
+    // 'Series' : '4'
+    // 'tipoRep' : 'Fija' o 'Variable' o 'Falso'
+    // 'Peso' : True o False
+    // CASO QUE 'Peso' : True --> 'tipoPeso' : 'Fija' o 'Variable' o 'Falso'
+
+    // Si el usuario clickea el span de close, se deberia borrar TODA la informacion que puso el usuario
+
+    // Si el usuario clickea el boton de 'Ya complete la rutina del dia X', se envia al backend 
+    // toda la data para que sea almacenada con el id del usuario
+
+    // Cuando se agrega AL MENOS un ejercicio EN CADA DIA de los que el usuario clickeo,
+    //  recien ahi se puede mover al dia 3
+
+    // Ordenar el JS en algun archivo separado y enlazarlo a subir_rutina2 (para un futuro que quede mas limpio)
 
     </script>
+
     <!-- Que aparezca solamente cuando el usuario completa todos los anteriores -->
+
     <button class="btn btn-primary" style="margin-top: .5rem;" type="submit">Agregar ejercicio </button>
     <div class="body-taglist">
         <div class="tag-box">

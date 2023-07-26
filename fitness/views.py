@@ -97,7 +97,7 @@ def subir_rutina_p2(request):
         else:
             # Dias que el usuario va al Gym
             dias_de_gym = request.POST.getlist('dias')
-    return render(request, "subir_rutina2.html", dias_de_gym)
+    return render(request, "subir_rutina2.html")
 
 @login_required
 def subir_rutina_p3(request):
