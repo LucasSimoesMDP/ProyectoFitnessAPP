@@ -33,30 +33,30 @@ para el lunes -->
         </div>
         <div class="cuestionario-peso-y-repeticiones">
             <h1>¿La cantidad de repeticiones es variable o fija?</h1>
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" aria-required="true">
-                <input type="radio" class="btn-check" name="btnradio1" id="btncheck1" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btncheck1">Es fija</label>
-                <input type="radio" class="btn-check" name="btnradio1" id="btncheck2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btncheck2">Varia</label>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio1" id="repFija" autocomplete="off" required>
+                <label class="btn btn-outline-primary" for="repFija">Es fija</label>
+                <input type="radio" class="btn-check" name="btnradio1" id="repVaria" autocomplete="off" required>
+                <label class="btn btn-outline-primary" for="repVaria">Varia</label>
             </div>
             <h1> ¿Utilizas peso en este ejercicio?</h1>
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group" aria-required="true">
-                <input type="radio" class="btn-check" name="btnradio2" id="btncheck3" autocomplete="off"
-                    onclick="mostrarLabelPeso()">
-                <label class="btn btn-outline-success" for="btncheck3">Si</label>
-                <input type="radio" class="btn-check" name="btnradio2" id="btncheck4" autocomplete="off"
-                    onclick="quitarLabelPeso()">
-                <label class="btn btn-outline-danger" for="btncheck4">No</label>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio2" id="pesoSi" autocomplete="off"
+                    onclick="mostrarLabelPeso()" required>
+                <label class="btn btn-outline-success" for="pesoSi">Si</label>
+                <input type="radio" class="btn-check" name="btnradio2" id="pesoNo" autocomplete="off"
+                    onclick="quitarLabelPeso()" required>
+                <label class="btn btn-outline-danger" for="pesoNo">No</label>
             </div>
         </div>
         <!-- Que aparezca solamente cuando el usuario pone que la cantidad de peso es FIJA -->
         <div class="cuestinario-oculto">
             <h1 class="pesoFijoVariable">¿La cantidad de peso es variable o fijo?</h1>                
-            <div class="pesoFijoVariable btn-group" role="group" aria-label="Basic radio toggle button group" aria-required="false">
-                <input type="radio" class="btn-check" name="btnradio3" id="btncheck5" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btncheck5">Es fijo</label>
-                <input type="radio" class="btn-check" name="btnradio3" id="btncheck6" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btncheck6">Varia</label>
+            <div class="pesoFijoVariable btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio3" id="pesoFijo" autocomplete="off">
+                <label class="btn btn-outline-primary" for="pesoFijo">Es fijo</label>
+                <input type="radio" class="btn-check" name="btnradio3" id="pesoVariable" autocomplete="off">
+                <label class="btn btn-outline-primary" for="pesoVariable">Varia</label>
             </div>
     </div>
 </form>
@@ -74,17 +74,19 @@ para el lunes -->
 </div>
 
 <script>
-    // let inputPeso = document.getElementById('inputPeso');
-    let pesoFijoVariable = document.getElementsByClassName('pesoFijoVariable');
-    let NoUtilizaPesoBoton = document.getElementById('btncheck4');
-    let pesoFijoBoton = document.getElementById('btncheck5');
-    let pesoVariableBoton = document.getElementById('btncheck6')
 
+    let pesoFijoVariable = document.getElementsByClassName('pesoFijoVariable');
+    let NoUtilizaPesoBoton = document.getElementById('pesoNo');
+    let pesoFijoBoton = document.getElementById('pesoFijo');
+    let pesoVariableBoton = document.getElementById('pesoVariable')
+    let repeticionFija = document.getElementById('repFija');
 
     function mostrarLabelPeso() {
         for(var i = 0;i<pesoFijoVariable.length;i++){
             pesoFijoVariable[i].style.display = 'flex';
         }
+        pesoFijoBoton.required = true;
+        pesoVariableBoton.required = true;
     }
 
     function quitarLabelPeso() {
@@ -95,6 +97,8 @@ para el lunes -->
                 pesoVariableBoton.checked = false;
             }        
         }
+        pesoFijoBoton.required = false;
+        pesoVariableBoton.required = false;
     }
 
     
@@ -105,16 +109,41 @@ para el lunes -->
     // Una vez completados los requisitos, se podra clickear el boton.
 
     const exerciseTextBox = document.querySelector('.tag-box')
-    let exercises = {}
+    let exercises = Object.create(null)
+    let tipoPeso,tipoRep, peso
     const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton')
 
     agregarEjercicioButton.addEventListener('click', function(){
         let nombreDeEjercicio = document.getElementById('floatingEjercicioNombre').value;
         let cantidadDeSeries = document.getElementById('floatingEjercicioSeries').value;
-        console.log(nombreDeEjercicio)
-    })
 
+        if (repeticionFija.checked){
+            tipoRep = 'Fija'
+        } else{
+            tipoRep = 'Variable'
+        }
+
+        if (NoUtilizaPesoBoton.checked){
+            peso = false;
+            tipoPeso = false;
+        } else{
+            peso = true;
+            if (pesoFijoBoton.checked){
+                tipoPeso = 'Fija';
+            } else{
+                tipoPeso = 'Variable';
+            }
+        }
+        exercises = {
+            'Ejercicio' : nombreDeEjercicio,
+            'Series' : cantidadDeSeries,
+            'tipoRep': tipoRep,
+            'peso': peso,
+            'tipoPeso' : tipoPeso
+        };
+    });
     
+
 
     // Si el boton activado se clickea, se deberia agregar un texto dentro del ul "tag-box" tal que asi:
     // <li><span class="material-symbols-outlined">close</span>NOMBRE DEL EJERCICIO QUE PUSO EL USUARIO</li>
