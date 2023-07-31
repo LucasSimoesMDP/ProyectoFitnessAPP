@@ -76,9 +76,12 @@ para el lunes -->
 
     let pesoFijoVariable = document.getElementsByClassName('pesoFijoVariable');
     let NoUtilizaPesoBoton = document.getElementById('pesoNo');
+    let UtilizaPesoBoton = document.getElementById('pesoSi')
     let pesoFijoBoton = document.getElementById('pesoFijo');
     let pesoVariableBoton = document.getElementById('pesoVariable')
     let repeticionFija = document.getElementById('repFija');
+    let repeticionVariable = document.getElementById('repVaria');
+
 
     function mostrarLabelPeso() {
         for (var i = 0; i < pesoFijoVariable.length; i++) {
@@ -102,11 +105,6 @@ para el lunes -->
 
 
     // Que hacer en el js:
-
-    // El boton de Agregar ejercicio va a estar DISABLE 
-    // hasta que el usuario no complete con todos los requisitos previos.
-    // Una vez completados los requisitos, se podra clickear el boton.
-
 
     let exercises = []
     let tipoPeso, tipoRep, peso
@@ -136,7 +134,10 @@ para el lunes -->
         }
 
         //Debo guardarlo en localstorage
-        if (nombreDeEjercicio != '') {
+        if ((nombreDeEjercicio != '') && (cantidadDeSeries != '') && 
+            (repeticionFija.checked || repeticionVariable.checked) && 
+            (UtilizaPesoBoton.checked || NoUtilizaPesoBoton.checked)
+        ) {
             exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
             if(exerciseList != []){
                 for(let i = 0;i<exerciseList.length;i++){
@@ -167,25 +168,25 @@ para el lunes -->
             for (let i = 0; i < exerciseList.length; i++) {
                 liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
             }
-            exerciseList.forEach(function (exercise) {
+            exerciseList.forEach(function () {
                 exerciseTextBox.innerHTML = liTag;
             })
         }
     });
 
+    // Muestra los ejercicios que estan guardados en localstorage, dentro de la tagbox
     if (JSON.parse(localStorage.getItem('Ejercicios')) != []) {
         exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
         let liTag = '';
             for (let i = 0; i < exerciseList.length; i++) {
                 liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
             }
-            exerciseList.forEach(function (exercise) {
+            exerciseList.forEach(function () {
                 exerciseTextBox.innerHTML = liTag;
             })        
     }
 
     function quitarEjercicio(ejercicio) {
-        console.log(ejercicio);
         exercisesLi = document.querySelectorAll('.exercise');
 
         for (let i = 0; i < exerciseList.length; i++) {
@@ -201,21 +202,11 @@ para el lunes -->
         localStorage.setItem('Ejercicios', JSON.stringify(exerciseList))
     }
 
-    // Si el boton activado se clickea, se deberia agregar un texto dentro del ul "tag-box" tal que asi:
-    // <li><span class="material-symbols-outlined">close</span>NOMBRE DEL EJERCICIO QUE PUSO EL USUARIO</li>
-
-    // La idea seria, guardar nombre,peso, serie y repeticion en una variable flotante
-    //Ejemplo:
-    // 'Ejercicio' : 'Abdominales Cortos'
-    // 'Series' : '4'
-    // 'tipoRep' : 'Fija' o 'Variable' o 'Falso'
-    // 'Peso' : True o False
-    // CASO QUE 'Peso' : True --> 'tipoPeso' : 'Fija' o 'Variable' o 'Falso'
-
-    // Si el usuario clickea el span de close, se deberia borrar TODA la informacion que puso el usuario
-
     // Si el usuario clickea el boton de 'Ya complete la rutina del dia X', se envia al backend
     // toda la data para que sea almacenada con el id del usuario
+
+    // Despues de enviar la informacion del dia X , debo eliminar la informacion del local storage
+    // para que comience el nuevo dia X+1
 
     // Cuando se agrega AL MENOS un ejercicio EN CADA DIA de los que el usuario clickeo,
     //  recien ahi se puede mover al dia 3
