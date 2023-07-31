@@ -69,7 +69,7 @@ para el lunes -->
         </ul>
     </div>
 </div>
-<button class="btn btn-dark" style="margin-bottom: 2rem;">Ya complete la rutina del dia Lunes</button>
+<button class="btn btn-dark" id="diaCompletoBoton" style="margin-bottom: 2rem;">Ya complete la rutina del dia Lunes</button>
 </div>
 
 <script>
@@ -204,6 +204,17 @@ para el lunes -->
 
     // Si el usuario clickea el boton de 'Ya complete la rutina del dia X', se envia al backend
     // toda la data para que sea almacenada con el id del usuario
+    diaCompletoBoton = document.getElementById('diaCompletoBoton');
+    diaCompletoBoton.addEventListener('click', function (){
+        // funcion popup para asegurar que el usuario realmente completó el dia
+        // Si marca NO, se cierra el popup y no se borra la info
+
+        // SI MARCA SI QUE PASE LO SIGUIENTE:
+        // Funcion ajax para enviar informacion al backend
+
+        // Funcion para eliminar los datos del localstorage del dia de la fecha 
+    })
+
 
     // Despues de enviar la informacion del dia X , debo eliminar la informacion del local storage
     // para que comience el nuevo dia X+1
