@@ -107,10 +107,11 @@ para el lunes -->
     // hasta que el usuario no complete con todos los requisitos previos.
     // Una vez completados los requisitos, se podra clickear el boton.
 
-    
+
     let exercises = []
     let tipoPeso, tipoRep, peso
-    const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton')    
+    const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton')
+    const exerciseTextBox = document.querySelector('.inside-tag-box');
 
     agregarEjercicioButton.addEventListener('click', function () {
         let nombreDeEjercicio = document.getElementById('floatingEjercicioNombre').value;
@@ -133,47 +134,68 @@ para el lunes -->
                 tipoPeso = 'Variable';
             }
         }
+
         //Debo guardarlo en localstorage
-        if (nombreDeEjercicio != ''){
-        exercises.push(
-            {
-                'Ejercicio': nombreDeEjercicio,
-                'Series': cantidadDeSeries,
-                'tipoRep': tipoRep,
-                'peso': peso,
-                'tipoPeso': tipoPeso
+        if (nombreDeEjercicio != '') {
+            exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
+            if(exerciseList != []){
+                for(let i = 0;i<exerciseList.length;i++){
+                    exercises.push(
+                    {
+                        'Ejercicio': exerciseList[i]['Ejercicio'],
+                        'Series': exerciseList[i]['Series'],
+                        'tipoRep': exerciseList[i]['tipoRep'],
+                        'peso': exerciseList[i]['peso'],
+                        'tipoPeso': exerciseList[i]['tipoPeso']
+                    }
+                    )
+                }
             }
-        )
-        localStorage.setItem('Ejercicios', JSON.stringify(exercises))
-        exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
-        const exerciseTextBox = document.querySelector('.inside-tag-box');
-        
-        let liTag = '';
-        for (let i = 0; i < exerciseList.length; i++) {
-            liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
-        }
-        exerciseList.forEach(function(exercise){
-            exerciseTextBox.innerHTML = liTag;
-        })
-        exerciseTextBox.innerHTML = liTag;
+            exercises.push(
+                    {
+                        'Ejercicio': nombreDeEjercicio,
+                        'Series': cantidadDeSeries,
+                        'tipoRep': tipoRep,
+                        'peso': peso,
+                        'tipoPeso': tipoPeso
+                    }
+                )
+            localStorage.setItem('Ejercicios', JSON.stringify(exercises))
+            exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
+
+            let liTag = '';
+            for (let i = 0; i < exerciseList.length; i++) {
+                liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
+            }
+            exerciseList.forEach(function (exercise) {
+                exerciseTextBox.innerHTML = liTag;
+            })
         }
     });
-    
 
+    if (JSON.parse(localStorage.getItem('Ejercicios')) != []) {
+        exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
+        let liTag = '';
+            for (let i = 0; i < exerciseList.length; i++) {
+                liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
+            }
+            exerciseList.forEach(function (exercise) {
+                exerciseTextBox.innerHTML = liTag;
+            })        
+    }
 
-    //Esto no esta funcionando!!
-    function quitarEjercicio(ejercicio){
+    function quitarEjercicio(ejercicio) {
         console.log(ejercicio);
         exercisesLi = document.querySelectorAll('.exercise');
 
-        for (let i = 0 ; i<exerciseList.length;i++){
-            if(exerciseList[i]['Ejercicio'].toLowerCase() === ejercicio.toLowerCase()){
-                exerciseList.splice(i,1);
-                exercises.splice(i,1);
+        for (let i = 0; i < exerciseList.length; i++) {
+            if (exerciseList[i]['Ejercicio'].toLowerCase() === ejercicio.toLowerCase()) {
+                exerciseList.splice(i, 1);
+                exercises.splice(i, 1);
                 exercisesLi[i].parentNode.removeChild(exercisesLi[i]);
                 break;
             }
-        }   
+        }
 
         localStorage.removeItem('Ejercicios');
         localStorage.setItem('Ejercicios', JSON.stringify(exerciseList))
