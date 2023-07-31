@@ -16,13 +16,12 @@
 <!-- Aca deberia poner JINJA configurable para lunes
     ,martes,mie... con un bucle for, por conveniencia ahora lo hago solo
 para el lunes -->
-<form id="agregarEjercicioForm">
+<form id="agregarEjercicioForm" onsubmit="return false">
     <div class="txt-rutina">
         <h1 style="white-space: nowrap; font-size: 21px;">El dia Lunes ¿Qué ejercicios realizas? </h1>
         <div class="form-floating mb-3">
             <input id="floatingEjercicioNombre" class="form-control" required>
-            <label for="floatingEjercicioNombre">Escribe el <span
-                    style="color: green; font-weight: 500;">nombre</span>
+            <label for="floatingEjercicioNombre">Escribe el <span style="color: green; font-weight: 500;">nombre</span>
                 del ejercicio aqui</label>
         </div>
         <div class="form-floating mb-3">
@@ -51,26 +50,26 @@ para el lunes -->
         </div>
         <!-- Que aparezca solamente cuando el usuario pone que la cantidad de peso es FIJA -->
         <div class="cuestinario-oculto">
-            <h1 class="pesoFijoVariable">¿La cantidad de peso es variable o fijo?</h1>                
+            <h1 class="pesoFijoVariable">¿La cantidad de peso es variable o fijo?</h1>
             <div class="pesoFijoVariable btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" class="btn-check" name="btnradio3" id="pesoFijo" autocomplete="off">
                 <label class="btn btn-outline-primary" for="pesoFijo">Es fijo</label>
                 <input type="radio" class="btn-check" name="btnradio3" id="pesoVariable" autocomplete="off">
                 <label class="btn btn-outline-primary" for="pesoVariable">Varia</label>
             </div>
-    </div>
-</form>
-    <!-- Que aparezca solamente cuando el usuario completa todos los anteriores -->
-
-    <button class="btn btn-primary" style="margin-top: .5rem;" type="submit" form="agregarEjercicioForm" id="agregarEjercicioBoton">Agregar ejercicio </button>
-    <div class="body-taglist">
-        <div class="tag-box">
-            <ul>
-                <li><span class="material-symbols-outlined">close</span> Abdominales cortos</li>
-            </ul>
         </div>
+</form>
+<!-- Que aparezca solamente cuando el usuario completa todos los anteriores -->
+
+<button class="btn btn-primary" style="margin-top: .5rem;" type="submit" form="agregarEjercicioForm"
+    id="agregarEjercicioBoton">Agregar ejercicio </button>
+<div class="body-taglist">
+    <div class="tag-box">
+        <ul class="inside-tag-box">
+        </ul>
     </div>
-    <button class="btn btn-dark" style="margin-bottom: 2rem;">Ya complete la rutina del dia Lunes</button>
+</div>
+<button class="btn btn-dark" style="margin-bottom: 2rem;">Ya complete la rutina del dia Lunes</button>
 </div>
 
 <script>
@@ -82,7 +81,7 @@ para el lunes -->
     let repeticionFija = document.getElementById('repFija');
 
     function mostrarLabelPeso() {
-        for(var i = 0;i<pesoFijoVariable.length;i++){
+        for (var i = 0; i < pesoFijoVariable.length; i++) {
             pesoFijoVariable[i].style.display = 'flex';
         }
         pesoFijoBoton.required = true;
@@ -90,60 +89,95 @@ para el lunes -->
     }
 
     function quitarLabelPeso() {
-        for(let i = 0;i<pesoFijoVariable.length;i++){
+        for (let i = 0; i < pesoFijoVariable.length; i++) {
             pesoFijoVariable[i].style.display = 'none';
-            if (NoUtilizaPesoBoton.checked){
+            if (NoUtilizaPesoBoton.checked) {
                 pesoFijoBoton.checked = false;
                 pesoVariableBoton.checked = false;
-            }        
+            }
         }
         pesoFijoBoton.required = false;
         pesoVariableBoton.required = false;
     }
 
-    
+
     // Que hacer en el js:
 
     // El boton de Agregar ejercicio va a estar DISABLE 
     // hasta que el usuario no complete con todos los requisitos previos.
     // Una vez completados los requisitos, se podra clickear el boton.
 
-    const exerciseTextBox = document.querySelector('.tag-box')
-    let exercises = Object.create(null)
-    let tipoPeso,tipoRep, peso
-    const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton')
+    
+    let exercises = []
+    let tipoPeso, tipoRep, peso
+    const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton')    
 
-    agregarEjercicioButton.addEventListener('click', function(){
+    agregarEjercicioButton.addEventListener('click', function () {
         let nombreDeEjercicio = document.getElementById('floatingEjercicioNombre').value;
         let cantidadDeSeries = document.getElementById('floatingEjercicioSeries').value;
 
-        if (repeticionFija.checked){
+        if (repeticionFija.checked) {
             tipoRep = 'Fija'
-        } else{
+        } else {
             tipoRep = 'Variable'
         }
 
-        if (NoUtilizaPesoBoton.checked){
+        if (NoUtilizaPesoBoton.checked) {
             peso = false;
             tipoPeso = false;
-        } else{
+        } else {
             peso = true;
-            if (pesoFijoBoton.checked){
+            if (pesoFijoBoton.checked) {
                 tipoPeso = 'Fija';
-            } else{
+            } else {
                 tipoPeso = 'Variable';
             }
         }
-        exercises = {
-            'Ejercicio' : nombreDeEjercicio,
-            'Series' : cantidadDeSeries,
-            'tipoRep': tipoRep,
-            'peso': peso,
-            'tipoPeso' : tipoPeso
-        };
+        //Debo guardarlo en localstorage
+        if (nombreDeEjercicio != ''){
+        exercises.push(
+            {
+                'Ejercicio': nombreDeEjercicio,
+                'Series': cantidadDeSeries,
+                'tipoRep': tipoRep,
+                'peso': peso,
+                'tipoPeso': tipoPeso
+            }
+        )
+        localStorage.setItem('Ejercicios', JSON.stringify(exercises))
+        exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
+        const exerciseTextBox = document.querySelector('.inside-tag-box');
+        
+        let liTag = '';
+        for (let i = 0; i < exerciseList.length; i++) {
+            liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
+        }
+        exerciseList.forEach(function(exercise){
+            exerciseTextBox.innerHTML = liTag;
+        })
+        exerciseTextBox.innerHTML = liTag;
+        }
     });
     
 
+
+    //Esto no esta funcionando!!
+    function quitarEjercicio(ejercicio){
+        console.log(ejercicio);
+        exercisesLi = document.querySelectorAll('.exercise');
+
+        for (let i = 0 ; i<exerciseList.length;i++){
+            if(exerciseList[i]['Ejercicio'].toLowerCase() === ejercicio.toLowerCase()){
+                exerciseList.splice(i,1);
+                exercises.splice(i,1);
+                exercisesLi[i].parentNode.removeChild(exercisesLi[i]);
+                break;
+            }
+        }   
+
+        localStorage.removeItem('Ejercicios');
+        localStorage.setItem('Ejercicios', JSON.stringify(exerciseList))
+    }
 
     // Si el boton activado se clickea, se deberia agregar un texto dentro del ul "tag-box" tal que asi:
     // <li><span class="material-symbols-outlined">close</span>NOMBRE DEL EJERCICIO QUE PUSO EL USUARIO</li>
@@ -158,7 +192,7 @@ para el lunes -->
 
     // Si el usuario clickea el span de close, se deberia borrar TODA la informacion que puso el usuario
 
-    // Si el usuario clickea el boton de 'Ya complete la rutina del dia X', se envia al backend 
+    // Si el usuario clickea el boton de 'Ya complete la rutina del dia X', se envia al backend
     // toda la data para que sea almacenada con el id del usuario
 
     // Cuando se agrega AL MENOS un ejercicio EN CADA DIA de los que el usuario clickeo,
