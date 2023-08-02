@@ -103,8 +103,13 @@ def subir_rutina_p2(request):
 @csrf_exempt
 def save_routine_daily_data(request):
     if request.method == 'POST':
-        TESTvalor = request.body.decode('utf-8')
-        print(json.loads(TESTvalor))
+        data = json.loads(request.body.decode('utf-8'))
+        ejercicios = data.get('Ejercicios', [])
+        dias = data.get('Dias', [])
+        print(data)
+        print(ejercicios)
+        print(dias)
+        print(type(data))
     return render(request, "subir_rutina2.html")
 
 @login_required
