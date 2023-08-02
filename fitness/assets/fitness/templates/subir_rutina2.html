@@ -69,8 +69,28 @@ para el lunes -->
         </ul>
     </div>
 </div>
-<button class="btn btn-dark" id="diaCompletoBoton" style="margin-bottom: 2rem;">Ya complete la rutina del dia Lunes</button>
+<!-- Cuando termine de armar el modal, deberia quitar el id de diaCompletoBoton -->
+<button type="button" class="btn btn-dark" style="margin-bottom: 2rem;" data-bs-toggle="modal" data-bs-target="#diaCompletoModal" >Ya complete la rutina del dia Lunes</button>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="diaCompletoModal" tabindex="-1" aria-labelledby="diaCompletoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            ¿Estas seguro que terminaste de anotar todos los ejercicios?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary" id="diaCompletoBoton">Si, quiero continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <script>
 
@@ -206,10 +226,9 @@ para el lunes -->
     // toda la data para que sea almacenada con el id del usuario
     diaCompletoBoton = document.getElementById('diaCompletoBoton');
     diaCompletoBoton.addEventListener('click', function (){
-        // funcion popup para asegurar que el usuario realmente completó el dia
-        // Si marca NO, se cierra el popup y no se borra la info
 
         // SI MARCA SI QUE PASE LO SIGUIENTE:
+        
         // Funcion ajax para enviar informacion al backend
 
         // Funcion para eliminar los datos del localstorage del dia de la fecha 

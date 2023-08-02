@@ -99,6 +99,9 @@ def subir_rutina_p2(request):
             dias_de_gym = request.POST.getlist('dias')
     return render(request, "subir_rutina2.html")
 
+# Funcion para guardar informacion de la parte 2 de la rutina
+
+
 @login_required
 def subir_rutina_p3(request):
     return render(request, "subir_rutina3.html")
