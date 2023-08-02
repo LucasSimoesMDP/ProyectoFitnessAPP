@@ -13,12 +13,13 @@
         </li>
     </ul>
 </nav>
+{% if days %}
 <!-- Aca deberia poner JINJA configurable para lunes
     ,martes,mie... con un bucle for, por conveniencia ahora lo hago solo
 para el lunes -->
 <form id="agregarEjercicioForm" onsubmit="return false">
     <div class="txt-rutina">
-        <h1 style="white-space: nowrap; font-size: 21px;">El dia Lunes ¿Qué ejercicios realizas? </h1>
+        <h1 style="white-space: nowrap; font-size: 21px;">El dia {{ days.0 }} ¿Qué ejercicios realizas? </h1>
         <div class="form-floating mb-3">
             <input id="floatingEjercicioNombre" class="form-control" required>
             <label for="floatingEjercicioNombre">Escribe el <span style="color: green; font-weight: 500;">nombre</span>
@@ -70,7 +71,7 @@ para el lunes -->
     </div>
 </div>
 <!-- Cuando termine de armar el modal, deberia quitar el id de diaCompletoBoton -->
-<button type="button" class="btn btn-dark" style="margin-bottom: 2rem;" data-bs-toggle="modal" data-bs-target="#diaCompletoModal" >Ya complete la rutina del dia Lunes</button>
+<button type="button" class="btn btn-dark" style="margin-bottom: 2rem;" data-bs-toggle="modal" data-bs-target="#diaCompletoModal" >Ya complete la rutina del dia {{ days.0 }}</button>
 </div>
 
 <!-- Modal -->
@@ -90,7 +91,6 @@ para el lunes -->
       </div>
     </div>
   </div>
-
 
 <script>
 
@@ -126,9 +126,9 @@ para el lunes -->
 
     // Que hacer en el js:
 
-    let exercises = []
-    let tipoPeso, tipoRep, peso
-    const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton')
+    let exercises = [];
+    let tipoPeso, tipoRep, peso;
+    const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton');
     const exerciseTextBox = document.querySelector('.inside-tag-box');
 
     agregarEjercicioButton.addEventListener('click', function () {
@@ -171,6 +171,9 @@ para el lunes -->
                     }
                     )
                 }
+            }
+            else{
+                localStorage.setItem('Ejercicios',JSON.stringify((exercises)));
             }
             exercises.push(
                     {
@@ -230,7 +233,16 @@ para el lunes -->
         // SI MARCA SI QUE PASE LO SIGUIENTE:
         
         // Funcion ajax para enviar informacion al backend
-
+        $.ajax({
+                type: "POST",
+                url: "{% url 'redirecting' %}",
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.parse(localStorage.getItem('Ejercicios')),
+                success: function (response) {
+                    window.location.href = response.redirect
+                }
+            })
         // Funcion para eliminar los datos del localstorage del dia de la fecha 
     })
 
@@ -244,5 +256,5 @@ para el lunes -->
     // Ordenar el JS en algun archivo separado y enlazarlo a subir_rutina2 (para un futuro que quede mas limpio)
 
 </script>
-
+{% endif %}
 {% endblock %}

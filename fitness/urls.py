@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register_view,my_profile,index,subir_rutina, subir_rutina_p2, subir_rutina_p3,login_view,after_first_login,logout_view
+from .views import register_view,my_profile,index,subir_rutina, subir_rutina_p2, subir_rutina_p3,login_view,after_first_login,logout_view,save_routine_daily_data
 from . import views
 
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('my_profile/', views.my_profile, name = 'my_profile'),
     path('subir_rutina1/',views.subir_rutina, name= 'subir_rutina1'),
     path('subir_rutina2/',views.subir_rutina_p2, name= 'subir_rutina2'),
+    path('redirecting/',views.save_routine_daily_data, name = 'redirecting'),
     path('subir_rutina3/',views.subir_rutina_p3, name= 'subir_rutina3'),
     path('logout/',views.logout_view, name='logout'),
 ]

@@ -90,17 +90,22 @@ def subir_rutina(request):
 def subir_rutina_p2(request):
     if request.method == 'POST':
         fecha_vencimiento_gym = request.body.decode('utf-8')
+        # Dias que el usuario va al Gym
+        dias_de_gym = request.POST.getlist('dias')
         if 'dias' not in fecha_vencimiento_gym:
         # Fecha de vencimiento del gym (OPCIONAL)
             if fecha_vencimiento_gym != 'null':
                 print('La fecha de vencimiento es',fecha_vencimiento_gym)
-        else:
-            # Dias que el usuario va al Gym
-            dias_de_gym = request.POST.getlist('dias')
-    return render(request, "subir_rutina2.html")
+    return render(request, "subir_rutina2.html",{'days': dias_de_gym})
 
 # Funcion para guardar informacion de la parte 2 de la rutina
-
+@login_required
+@csrf_exempt
+def save_routine_daily_data(request):
+    if request.method == 'POST':
+        TESTvalor = request.body.decode('utf-8')
+        print(json.loads(TESTvalor))
+    return render(request, "subir_rutina2.html")
 
 @login_required
 def subir_rutina_p3(request):
