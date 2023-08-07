@@ -230,17 +230,20 @@ para el lunes -->
     diaCompletoBoton.addEventListener('click', function (){
 
         // SI MARCA SI QUE PASE LO SIGUIENTE:
-        
         // Funcion ajax para enviar informacion al backend
         $.ajax({
                 type: "POST",
                 url: "{% url 'redirecting' %}",
                 dataType: 'json',
                 contentType: "application/json",
-                data: JSON.stringify({
+                data: {
                     'Ejercicios': localStorage.getItem('Ejercicios'),
-                    'Dias': "{{ days }}",
-                }),
+                    'Dias': "{{ days|safe }}",
+                } ,
+                // data: JSON.stringify({
+                //     'Ejercicios': localStorage.getItem('Ejercicios'),
+                //     'Dias': "{{ days|safe }}",
+                // } ),
                 success: function (response) {
                     window.location.href = response.redirect
                 }

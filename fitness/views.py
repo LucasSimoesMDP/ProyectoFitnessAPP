@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm
 import json
 from django.views.decorators.csrf import csrf_exempt
+import ast
 
 def login_view(request,*args, **kwargs):
            
@@ -104,13 +105,18 @@ def subir_rutina_p2(request):
 def save_routine_daily_data(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
-        ejercicios = data.get('Ejercicios', [])
-        dias = data.get('Dias', [])
-        print(data)
+        ejercicios = data['Ejercicios']
+        dias = ast.literal_eval(data['Dias'])
         print(ejercicios)
+        print(type(ejercicios))
+        # Como dias = ['Lunes', 'Martes', 'Miercoles'] es un string y NO es una lista
+        # Me queda ahora guardar los ejercicios en la database del user con el model 
+        # que cree y pasar al dia siguiente --> ejercicios[i] agarra todos los ejercicios 
+        # con las condiciones 
+        dias.remove(dias[0])
         print(dias)
-        print(type(data))
-    return render(request, "subir_rutina2.html")
+        # Para pasar al dia siguiente debo mandar a subir rutina2 la lista quitando el valor del dia 
+    return render(request,"subir_rutina2",{'days': dias})
 
 @login_required
 def subir_rutina_p3(request):
