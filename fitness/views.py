@@ -84,39 +84,34 @@ def my_profile(request):
 @login_required
 @csrf_exempt
 def subir_rutina(request):
-    return render(request, "subir_rutina1.html")
-
-@login_required
-@csrf_exempt
-def subir_rutina_p2(request):
     if request.method == 'POST':
         fecha_vencimiento_gym = request.body.decode('utf-8')
         # Dias que el usuario va al Gym
         dias_de_gym = request.POST.getlist('dias')
+        request.session['dias_de_gym'] = dias_de_gym
         if 'dias' not in fecha_vencimiento_gym:
         # Fecha de vencimiento del gym (OPCIONAL)
             if fecha_vencimiento_gym != 'null':
                 print('La fecha de vencimiento es',fecha_vencimiento_gym)
-    return render(request, "subir_rutina2.html",{'days': dias_de_gym})
+        return redirect('subir_rutina2')
+    return render(request, "subir_rutina1.html")
 
-# Funcion para guardar informacion de la parte 2 de la rutina
 @login_required
 @csrf_exempt
-def save_routine_daily_data(request):
+def subir_rutina_p2(request):    
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         ejercicios = data['Ejercicios']
-        dias = ast.literal_eval(data['Dias'])
         print(ejercicios)
         print(type(ejercicios))
-        # Como dias = ['Lunes', 'Martes', 'Miercoles'] es un string y NO es una lista
         # Me queda ahora guardar los ejercicios en la database del user con el model 
         # que cree y pasar al dia siguiente --> ejercicios[i] agarra todos los ejercicios 
         # con las condiciones 
-        dias.remove(dias[0])
-        print(dias)
+        request.session['dias_de_gym'].remove(request.session['dias_de_gym'][0])
+        # return redirect('subir_rutina2',{'days': request.session['dias_de_gym']} )
+        # return render(request, "subir_rutina2.html",{'days': request.session['dias_de_gym']})
         # Para pasar al dia siguiente debo mandar a subir rutina2 la lista quitando el valor del dia 
-    return render(request,"subir_rutina2",{'days': dias})
+    return render(request, "subir_rutina2.html",{'days': request.session['dias_de_gym']})
 
 @login_required
 def subir_rutina_p3(request):

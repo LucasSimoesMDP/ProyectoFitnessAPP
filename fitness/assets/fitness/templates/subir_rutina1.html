@@ -15,7 +15,7 @@
 <div class="txt-rutina">
     <button class="btn btn-dark" id="formCompletoBtn" type="submit" form="crearFormulario" onclick="sendDataToBackend()" style="margin-bottom: 2rem; display: none;">Continuar a la siguiente pagina</button>
     <h1>¿Qué días vas al GYM?</h1>
-    <form class="dias" method="post" id="crearFormulario" action="/subir_rutina2/" >
+    <form class="dias" method="post" id="crearFormulario" action="/subir_rutina1/" >
         <div class="btn-group d-flex flex-wrap" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" name="dias" value="Lunes" id="btncheck1" autocomplete="off">
             <label class="btn btn-outline-success" for="btncheck1">Lunes</label>
@@ -180,7 +180,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "{% url 'subir_rutina2' %}",
+                url: "{% url 'subir_rutina1' %}",
                 dataType: 'json',
                 contentType: "application/json",
                 data: JSON.stringify(dueDate),

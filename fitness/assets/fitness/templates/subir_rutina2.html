@@ -17,7 +17,7 @@
 <!-- Aca deberia poner JINJA configurable para lunes
     ,martes,mie... con un bucle for, por conveniencia ahora lo hago solo
 para el lunes -->
-<form id="agregarEjercicioForm" onsubmit="return false">
+<form id="agregarEjercicioForm">
     <div class="txt-rutina">
         <h1 style="white-space: nowrap; font-size: 21px;">El dia {{ days.0 }} ¿Qué ejercicios realizas? </h1>
         <div class="form-floating mb-3">
@@ -86,7 +86,7 @@ para el lunes -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-primary" id="diaCompletoBoton">Si, quiero continuar</button>
+          <button type="button" class="btn btn-primary" id="diaCompletoBoton" type="submit" form="crearFormulario">Si, quiero continuar</button>
         </div>
       </div>
     </div>
@@ -233,17 +233,16 @@ para el lunes -->
         // Funcion ajax para enviar informacion al backend
         $.ajax({
                 type: "POST",
-                url: "{% url 'redirecting' %}",
+                url: "{% url 'subir_rutina2' %}",
                 dataType: 'json',
                 contentType: "application/json",
-                data: {
-                    'Ejercicios': localStorage.getItem('Ejercicios'),
-                    'Dias': "{{ days|safe }}",
-                } ,
-                // data: JSON.stringify({
+                // data: {
                 //     'Ejercicios': localStorage.getItem('Ejercicios'),
                 //     'Dias': "{{ days|safe }}",
-                // } ),
+                // } ,
+                data: JSON.stringify({
+                    'Ejercicios': localStorage.getItem('Ejercicios'),        
+                } ),
                 success: function (response) {
                     window.location.href = response.redirect
                 }
