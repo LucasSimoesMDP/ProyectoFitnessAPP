@@ -103,20 +103,14 @@ def subir_rutina_p2(request):
         if request.method == 'POST':
             data = json.loads(request.body.decode('utf-8'))
             ejercicios = data['Ejercicios']
-            print(ejercicios)
-            print(type(ejercicios))
             # Me queda ahora guardar los ejercicios en la database del user con el model 
             # que cree y pasar al dia siguiente --> ejercicios[i] agarra todos los ejercicios 
             # con las condiciones
             request.session['dias_de_gym'].remove(request.session['dias_de_gym'][0])
-            print('llegaste via POST!!!', request.session['dias_de_gym'])
             request.session.modified = True
             return redirect('subir_rutina2')
-                
-            # return render(request, "subir_rutina2.html",{'days': request.session['dias_de_gym']})
-        request.session.modified = True 
-        print('esto es via GET',request.session['dias_de_gym'])    
-            # Para pasar al dia siguiente debo mandar a subir rutina2 la lista quitando el valor del dia 
+        request.session.modified = True    
+        # Para pasar al dia siguiente debo mandar a subir rutina2 la lista quitando el valor del dia 
         return render(request, "subir_rutina2.html",{'days': request.session['dias_de_gym']})
     else:
         return redirect('subir_rutina3')

@@ -11,3 +11,13 @@ class CustomUser(AbstractUser):
 
 
     custom_groups = models.ManyToManyField(Group)
+
+
+# Objetivo:
+# ejercicio['Lunes'] : [{"Ejercicio":"Abs","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false},{"Ejercicio":"Pushups","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false}]
+# key -> lunes
+# value: [{"Ejercicio":"Abs","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false},{"Ejercicio":"Pushups","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false}]
+
+
+# class EjerciciosDict(models.Model):
+    # dia = 
