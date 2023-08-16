@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm
 import json
 from django.views.decorators.csrf import csrf_exempt
+from .models import EjerciciosDict
 import ast
 
 def login_view(request,*args, **kwargs):
@@ -102,18 +103,28 @@ def subir_rutina_p2(request):
     if request.session['dias_de_gym'] != []:    
         if request.method == 'POST':
             data = json.loads(request.body.decode('utf-8'))
+
             ejercicios = data['Ejercicios']
+
+
+
             # Me queda ahora guardar los ejercicios en la database del user con el model 
             # que cree y pasar al dia siguiente --> ejercicios[i] agarra todos los ejercicios 
             # con las condiciones
-            request.session['dias_de_gym'].remove(request.session['dias_de_gym'][0])
+            # -> donde request.session['dias_de_gym'][0] es = Lunes o Martes o etc
+            username = request.user
+            ejercicios_dict, created = EjerciciosDict.objects.get_or_create(usuario = username)
+            dia_actual = request.session['dias_de_gym'][0]
+            setattr(ejercicios_dict, dia_actual, ejercicios)
+            ejercicios_dict.save()
+            request.session['dias_de_gym'].remove(dia_actual)
             request.session.modified = True
             return redirect('subir_rutina2')
         request.session.modified = True    
         # Para pasar al dia siguiente debo mandar a subir rutina2 la lista quitando el valor del dia 
         return render(request, "subir_rutina2.html",{'days': request.session['dias_de_gym']})
     else:
-        return redirect('subir_rutina3')
+        return redirect('subir_rutina3') 
 
 @login_required
 def subir_rutina_p3(request):
