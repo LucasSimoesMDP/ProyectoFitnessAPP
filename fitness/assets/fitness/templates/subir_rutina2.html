@@ -93,8 +93,9 @@ para el lunes -->
   </div>
 
 <script>
-    document.documentElement.scrollTop = 0;
-    
+    document.documentElement.scrollTop = 0;   
+
+
     let pesoFijoVariable = document.getElementsByClassName('pesoFijoVariable');
     let NoUtilizaPesoBoton = document.getElementById('pesoNo');
     let UtilizaPesoBoton = document.getElementById('pesoSi')
@@ -132,6 +133,10 @@ para el lunes -->
     const agregarEjercicioButton = document.getElementById('agregarEjercicioBoton');
     const exerciseTextBox = document.querySelector('.inside-tag-box');
 
+    // PRUEBA::\
+    console.log(exercises)
+    localStorage.setItem('Ejercicios',JSON.stringify((exercises)));
+
     agregarEjercicioButton.addEventListener('click', function () {
         let nombreDeEjercicio = document.getElementById('floatingEjercicioNombre').value;
         let cantidadDeSeries = document.getElementById('floatingEjercicioSeries').value;
@@ -154,48 +159,48 @@ para el lunes -->
             }
         }
 
-        //Debo guardarlo en localstorage
-        if ((nombreDeEjercicio != '') && (cantidadDeSeries != '') && 
-            (repeticionFija.checked || repeticionVariable.checked) && 
-            (UtilizaPesoBoton.checked || NoUtilizaPesoBoton.checked)
-        ) {
-            exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
-            if(exerciseList != []){
-                for(let i = 0;i<exerciseList.length;i++){
-                    exercises.push(
-                    {
-                        'Ejercicio': exerciseList[i]['Ejercicio'],
-                        'Series': exerciseList[i]['Series'],
-                        'tipoRep': exerciseList[i]['tipoRep'],
-                        'peso': exerciseList[i]['peso'],
-                        'tipoPeso': exerciseList[i]['tipoPeso']
+        //Debo guardarlo en localstorage 
+            if ((nombreDeEjercicio != '') && (cantidadDeSeries != '') && 
+                (repeticionFija.checked || repeticionVariable.checked) && 
+                (UtilizaPesoBoton.checked || NoUtilizaPesoBoton.checked)
+            ) {
+                exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
+                if(exerciseList != []){
+                    for(let i = 0;i<exerciseList.length;i++){
+                        exercises.push(
+                        {
+                            'Ejercicio': exerciseList[i]['Ejercicio'],
+                            'Series': exerciseList[i]['Series'],
+                            'tipoRep': exerciseList[i]['tipoRep'],
+                            'peso': exerciseList[i]['peso'],
+                            'tipoPeso': exerciseList[i]['tipoPeso']
+                        }
+                        )
                     }
-                    )
                 }
-            }
-            else{
-                localStorage.setItem('Ejercicios',JSON.stringify((exercises)));
-            }
-            exercises.push(
-                    {
-                        'Ejercicio': nombreDeEjercicio,
-                        'Series': cantidadDeSeries,
-                        'tipoRep': tipoRep,
-                        'peso': peso,
-                        'tipoPeso': tipoPeso
-                    }
-                )
-            localStorage.setItem('Ejercicios', JSON.stringify(exercises))
-            exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
+                else{
+                    localStorage.setItem('Ejercicios',JSON.stringify((exercises)));
+                }
+                exercises.push(
+                        {
+                            'Ejercicio': nombreDeEjercicio,
+                            'Series': cantidadDeSeries,
+                            'tipoRep': tipoRep,
+                            'peso': peso,
+                            'tipoPeso': tipoPeso
+                        }
+                    )
+                localStorage.setItem('Ejercicios', JSON.stringify(exercises))
+                exerciseList = JSON.parse(localStorage.getItem('Ejercicios'));
 
-            let liTag = '';
-            for (let i = 0; i < exerciseList.length; i++) {
-                liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
+                let liTag = '';
+                for (let i = 0; i < exerciseList.length; i++) {
+                    liTag += `<li class='exercise'><span class="material-symbols-outlined" onclick="quitarEjercicio('${exerciseList[i]['Ejercicio']}');">close</span> ${exerciseList[i]['Ejercicio']}</li>`;
+                }
+                exerciseList.forEach(function () {
+                    exerciseTextBox.innerHTML = liTag;
+                })
             }
-            exerciseList.forEach(function () {
-                exerciseTextBox.innerHTML = liTag;
-            })
-        }
     });
 
     // Muestra los ejercicios que estan guardados en localstorage, dentro de la tagbox
@@ -249,10 +254,12 @@ para el lunes -->
                     window.location.href = response.redirect;
                 },
                 complete: function () {                    
-                    window.location.reload(); 
+                    window.location.reload();
+                    localStorage.removeItem('Ejercicios');
+                    localStorage.setItem('Ejercicios', [])         // Linea para eliminar los datos del localstorage del dia de la fecha 
                 }
             })
-        // Funcion para eliminar los datos del localstorage del dia de la fecha 
+
 
     })
 

@@ -105,13 +105,6 @@ def subir_rutina_p2(request):
             data = json.loads(request.body.decode('utf-8'))
 
             ejercicios = data['Ejercicios']
-
-
-
-            # Me queda ahora guardar los ejercicios en la database del user con el model 
-            # que cree y pasar al dia siguiente --> ejercicios[i] agarra todos los ejercicios 
-            # con las condiciones
-            # -> donde request.session['dias_de_gym'][0] es = Lunes o Martes o etc
             username = request.user
             ejercicios_dict, created = EjerciciosDict.objects.get_or_create(usuario = username)
             dia_actual = request.session['dias_de_gym'][0]

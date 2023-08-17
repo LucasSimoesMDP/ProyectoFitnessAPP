@@ -13,15 +13,6 @@ class CustomUser(AbstractUser):
 
     custom_groups = models.ManyToManyField(Group)
 
-
-# Objetivo:
-# ejercicio['Lunes'] : [{"Ejercicio":"Abs","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false},{"Ejercicio":"Pushups","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false}]
-# key -> lunes
-# value: [{"Ejercicio":"Abs","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false},{"Ejercicio":"Pushups","Series":"4","tipoRep":"Fija","peso":false,"tipoPeso":false}]
-
-
-
-
 class EjerciciosDict(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     Lunes = models.JSONField(default=list)   
